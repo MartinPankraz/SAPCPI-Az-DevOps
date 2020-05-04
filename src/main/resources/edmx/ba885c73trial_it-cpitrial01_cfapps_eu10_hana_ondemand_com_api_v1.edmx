@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+  <edmx:DataServices m:DataServiceVersion="1.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="com.sap.hci.api" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="MessageStoreEntryProperty">
+        <Key>
+          <PropertyRef Name="MessageId"/>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="MessageId" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Value" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLogRunStepProperty">
+        <Key>
+          <PropertyRef Name="RunId"/>
+          <PropertyRef Name="ChildCount"/>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="RunId" Type="Edm.String" Nullable="false"/>
+        <Property Name="ChildCount" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Value" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="AuditLog">
+        <Key>
+          <PropertyRef Name="ChangeId"/>
+        </Key>
+        <Property Name="ChangeId" Type="Edm.String" Nullable="false"/>
+        <Property Name="Action" Type="Edm.String" Nullable="true"/>
+        <Property Name="Timestamp" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="UserName" Type="Edm.String" Nullable="true"/>
+        <Property Name="ObjName" Type="Edm.String" Nullable="true"/>
+        <Property Name="ObjType" Type="Edm.String" Nullable="true"/>
+        <Property Name="Source" Type="Edm.String" Nullable="true"/>
+        <Property Name="NodeType" Type="Edm.String" Nullable="true"/>
+        <Property Name="UserType" Type="Edm.String" Nullable="true"/>
+        <Property Name="CustomerVisible" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLogRunStep">
+        <Key>
+          <PropertyRef Name="RunId"/>
+          <PropertyRef Name="ChildCount"/>
+        </Key>
+        <Property Name="RunId" Type="Edm.String" Nullable="false"/>
+        <Property Name="ChildCount" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="StepStart" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="StepStop" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="StepId" Type="Edm.String" Nullable="true"/>
+        <Property Name="ModelStepId" Type="Edm.String" Nullable="true"/>
+        <Property Name="BranchId" Type="Edm.String" Nullable="true"/>
+        <Property Name="Status" Type="Edm.String" Nullable="true"/>
+        <Property Name="Error" Type="Edm.String" Nullable="true"/>
+        <Property Name="Activity" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="RunStepProperties" Relationship="com.sap.hci.api.MessageProcessingLogRunStep_2_r_RunStepProperties" FromRole="MessageProcessingLogRunStep" ToRole="r_RunStepProperties"/>
+        <NavigationProperty Name="TraceMessages" Relationship="com.sap.hci.api.MessageProcessingLogRunStep_2_r_TraceMessages" FromRole="MessageProcessingLogRunStep" ToRole="r_TraceMessages"/>
+      </EntityType>
+      <EntityType Name="TraceMessageProperty">
+        <Key>
+          <PropertyRef Name="TraceId"/>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="TraceId" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Value" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="MessageStoreEntry" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="MessageGuid" Type="Edm.String" Nullable="true"/>
+        <Property Name="MessageStoreId" Type="Edm.String" Nullable="true"/>
+        <Property Name="TimeStamp" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="HasAttachments" Type="Edm.Boolean" Nullable="true"/>
+        <NavigationProperty Name="Attachments" Relationship="com.sap.hci.api.MessageStoreEntry_2_r_Attachments" FromRole="MessageStoreEntry" ToRole="r_Attachments"/>
+        <NavigationProperty Name="Properties" Relationship="com.sap.hci.api.MessageStoreEntry_2_r_Properties" FromRole="MessageStoreEntry" ToRole="r_Properties"/>
+      </EntityType>
+      <EntityType Name="ArtifactReference">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="Description" Type="Edm.String" Nullable="true"/>
+        <Property Name="Type" Type="Edm.String" Nullable="true"/>
+        <Property Name="ConditionAttribute" Type="Edm.String" Nullable="true"/>
+        <Property Name="ConditionValue" Type="Edm.String" Nullable="true"/>
+        <Property Name="ConditionType" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="AccessPolicy" Relationship="com.sap.hci.api.r_AccessPolicy_2_r_ArtifactReferences" FromRole="r_ArtifactReferences" ToRole="r_AccessPolicy"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLogAdapterAttribute">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="AdapterId" Type="Edm.String" Nullable="true"/>
+        <Property Name="AdapterMessageId" Type="Edm.String" Nullable="true"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="Value" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="MessageProcessingLog" Relationship="com.sap.hci.api.MessageProcessingLogAdapterAttributesAss" FromRole="r_AdapterAttributes" ToRole="r_MessageProcessingLog"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLogErrorInformation" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="MessageGuid"/>
+        </Key>
+        <Property Name="MessageGuid" Type="Edm.String" Nullable="false"/>
+        <Property Name="Type" Type="Edm.String" Nullable="true"/>
+        <Property Name="LastErrorModelStepId" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="MessageStoreEntryAttachment" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="ContentType" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="Properties" Relationship="com.sap.hci.api.MessageStoreEntryAttachment_2_r_Properties" FromRole="MessageStoreEntryAttachment" ToRole="r_Properties"/>
+      </EntityType>
+      <EntityType Name="TraceMessageExchangeProperty">
+        <Key>
+          <PropertyRef Name="TraceId"/>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="TraceId" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Value" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="TraceMessage" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="TraceId"/>
+        </Key>
+        <Property Name="TraceId" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="MplId" Type="Edm.String" Nullable="false"/>
+        <Property Name="RunId" Type="Edm.String" Nullable="true"/>
+        <Property Name="ModelStepId" Type="Edm.String" Nullable="true"/>
+        <Property Name="PayloadSize" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="MimeType" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="Properties" Relationship="com.sap.hci.api.TraceMessage_2_r_Properties" FromRole="TraceMessage" ToRole="r_Properties"/>
+        <NavigationProperty Name="ExchangeProperties" Relationship="com.sap.hci.api.TraceMessage_2_r_ExchangeProperties" FromRole="TraceMessage" ToRole="r_ExchangeProperties"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLogAttachment" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="MessageGuid" Type="Edm.String" Nullable="true"/>
+        <Property Name="TimeStamp" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="ContentType" Type="Edm.String" Nullable="true"/>
+        <Property Name="PayloadSize" Type="Edm.Int64" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLog">
+        <Key>
+          <PropertyRef Name="MessageGuid"/>
+        </Key>
+        <Property Name="MessageGuid" Type="Edm.String" Nullable="false"/>
+        <Property Name="CorrelationId" Type="Edm.String" Nullable="true"/>
+        <Property Name="ApplicationMessageId" Type="Edm.String" Nullable="true"/>
+        <Property Name="ApplicationMessageType" Type="Edm.String" Nullable="true"/>
+        <Property Name="LogStart" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="LogEnd" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="Sender" Type="Edm.String" Nullable="true"/>
+        <Property Name="Receiver" Type="Edm.String" Nullable="true"/>
+        <Property Name="IntegrationFlowName" Type="Edm.String" Nullable="true"/>
+        <Property Name="Status" Type="Edm.String" Nullable="true"/>
+        <Property Name="AlternateWebLink" Type="Edm.String" Nullable="true"/>
+        <Property Name="IntegrationArtifact" Type="com.sap.hci.api.IntegrationArtifact" Nullable="false"/>
+        <Property Name="LogLevel" Type="Edm.String" Nullable="true"/>
+        <Property Name="CustomStatus" Type="Edm.String" Nullable="true"/>
+        <Property Name="TransactionId" Type="Edm.String" Nullable="true"/>
+        <Property Name="PreviousComponentName" Type="Edm.String" Nullable="true"/>
+        <Property Name="LocalComponentName" Type="Edm.String" Nullable="true"/>
+        <Property Name="OriginComponentName" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="CustomHeaderProperties" Relationship="com.sap.hci.api.MessageProcessingLogCustomHeaderPropertiesAss" FromRole="r_Log" ToRole="r_CustomHeaderProperties"/>
+        <NavigationProperty Name="MessageStoreEntries" Relationship="com.sap.hci.api.MessageProcessingLog_2_r_MessageStoreEntries" FromRole="MessageProcessingLog" ToRole="r_MessageStoreEntries"/>
+        <NavigationProperty Name="ErrorInformation" Relationship="com.sap.hci.api.MessageProcessingLog_2_r_ErrorInformation" FromRole="MessageProcessingLog" ToRole="r_ErrorInformation"/>
+        <NavigationProperty Name="AdapterAttributes" Relationship="com.sap.hci.api.MessageProcessingLogAdapterAttributesAss" FromRole="r_MessageProcessingLog" ToRole="r_AdapterAttributes"/>
+        <NavigationProperty Name="Attachments" Relationship="com.sap.hci.api.MessageProcessingLog_2_r_Attachments" FromRole="MessageProcessingLog" ToRole="r_Attachments"/>
+        <NavigationProperty Name="Runs" Relationship="com.sap.hci.api.MessageProcessingLog_2_r_Runs" FromRole="MessageProcessingLog" ToRole="r_Runs"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLogRun">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="RunStart" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="RunStop" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="LogLevel" Type="Edm.String" Nullable="true"/>
+        <Property Name="OverallState" Type="Edm.String" Nullable="true"/>
+        <Property Name="ProcessId" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="RunSteps" Relationship="com.sap.hci.api.MessageProcessingLogRun_2_r_RunSteps" FromRole="MessageProcessingLogRun" ToRole="r_RunSteps"/>
+      </EntityType>
+      <EntityType Name="MessageStoreEntryAttachmentProperty">
+        <Key>
+          <PropertyRef Name="AttachmentId"/>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="AttachmentId" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Value" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="AccessPolicy">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="RoleName" Type="Edm.String" Nullable="true"/>
+        <Property Name="Description" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="ArtifactReferences" Relationship="com.sap.hci.api.r_AccessPolicy_2_r_ArtifactReferences" FromRole="r_AccessPolicy" ToRole="r_ArtifactReferences"/>
+      </EntityType>
+      <EntityType Name="MessageProcessingLogCustomHeaderProperty">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="Value" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="Log" Relationship="com.sap.hci.api.MessageProcessingLogCustomHeaderPropertiesAss" FromRole="r_CustomHeaderProperties" ToRole="r_Log"/>
+      </EntityType>
+      <EntityType Name="KeystoreEntryAlias">
+        <Key>
+          <PropertyRef Name="Hexalias"/>
+        </Key>
+        <Property Name="Hexalias" Type="Edm.String" Nullable="false" MaxLength="2000"/>
+        <Property Name="Alias" Type="Edm.String" Nullable="false" MaxLength="250"/>
+      </EntityType>
+      <EntityType Name="KeystoreEntryCertificatePartBase" BaseType="com.sap.hci.api.KeystoreEntryAlias">
+        <Property Name="KeyType" Type="Edm.String" Nullable="true" MaxLength="30"/>
+        <Property Name="KeySize" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="ValidNotBefore" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="ValidNotAfter" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="SerialNumber" Type="Edm.String" Nullable="true" MaxLength="256"/>
+        <Property Name="SignatureAlgorithm" Type="Edm.String" Nullable="true" MaxLength="60"/>
+        <Property Name="EllipticCurve" Type="Edm.String" Nullable="true" MaxLength="80"/>
+      </EntityType>
+      <EntityType Name="KeystoreEntryCertificatePart" BaseType="com.sap.hci.api.KeystoreEntryCertificatePartBase">
+        <Property Name="Validity" Type="Edm.String" Nullable="true" MaxLength="1000"/>
+        <Property Name="SubjectDN" Type="Edm.String" Nullable="true" MaxLength="50000"/>
+        <Property Name="IssuerDN" Type="Edm.String" Nullable="true" MaxLength="50000"/>
+        <Property Name="Version" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="FingerprintSha1" Type="Edm.String" Nullable="true" MaxLength="200"/>
+        <Property Name="FingerprintSha256" Type="Edm.String" Nullable="true" MaxLength="200"/>
+        <Property Name="FingerprintSha512" Type="Edm.String" Nullable="true" MaxLength="200"/>
+      </EntityType>
+      <EntityType Name="KeystoreEntry" BaseType="com.sap.hci.api.KeystoreEntryCertificatePart">
+        <Property Name="Type" Type="Edm.String" Nullable="true" MaxLength="30"/>
+        <Property Name="Owner" Type="Edm.String" Nullable="true" MaxLength="30"/>
+        <Property Name="LastModifiedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="LastModifiedTime" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="CreatedTime" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="Status" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <NavigationProperty Name="ChainCertificates" Relationship="com.sap.hci.api.CertificateChainOfKeyPair" FromRole="r_KeystoreEntry" ToRole="r_ChainCertificates"/>
+        <NavigationProperty Name="Certificate" Relationship="com.sap.hci.api.A_KeystoreEntry_CertificateResource" FromRole="r_KeystoreEntry" ToRole="r_Certificate"/>
+        <NavigationProperty Name="Sshkey" Relationship="com.sap.hci.api.A_KeystoreEntry_SSHKeyResource" FromRole="r_KeystoreEntry" ToRole="r_Sshkey"/>
+        <NavigationProperty Name="Keystore" Relationship="com.sap.hci.api.EntriesOfKeystore" FromRole="r_Entries" ToRole="r_Keystore"/>
+        <NavigationProperty Name="ChainResource" Relationship="com.sap.hci.api.A_KeystoreEntry_CertificateChainResource" FromRole="r_KeystoreEntry" ToRole="r_ChainResource"/>
+        <NavigationProperty Name="SigningRequest" Relationship="com.sap.hci.api.A_KeystoreEntry_CertificateSigningRequest" FromRole="r_KeystoreEntry" ToRole="r_SigningRequest"/>
+      </EntityType>
+      <EntityType Name="HistoryKeystoreEntry" BaseType="com.sap.hci.api.KeystoreEntry">
+        <Property Name="ActivatedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="ActiveFrom" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="DeactivatedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="ActiveUntil" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="ActivationSequenceNumber" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="OriginalAlias" Type="Edm.String" Nullable="true" MaxLength="250"/>
+      </EntityType>
+      <EntityType Name="KeyPairResource" BaseType="com.sap.hci.api.KeystoreEntryAlias">
+        <Property Name="Resource" Type="Edm.Binary" Nullable="true" MaxLength="30072"/>
+        <Property Name="Password" Type="Edm.String" Nullable="true" MaxLength="500"/>
+      </EntityType>
+      <EntityType Name="ChainCertificate">
+        <Key>
+          <PropertyRef Name="Hexalias"/>
+          <PropertyRef Name="Index"/>
+        </Key>
+        <Property Name="Hexalias" Type="Edm.String" Nullable="false" MaxLength="2000"/>
+        <Property Name="Alias" Type="Edm.String" Nullable="false" MaxLength="250"/>
+        <Property Name="Index" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="Validity" Type="Edm.String" Nullable="true" MaxLength="1000"/>
+        <Property Name="KeyType" Type="Edm.String" Nullable="true" MaxLength="30"/>
+        <Property Name="KeySize" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="ValidNotBefore" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="ValidNotAfter" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="SubjectDN" Type="Edm.String" Nullable="true" MaxLength="50000"/>
+        <Property Name="IssuerDN" Type="Edm.String" Nullable="true" MaxLength="50000"/>
+        <Property Name="SerialNumber" Type="Edm.String" Nullable="true" MaxLength="66"/>
+        <Property Name="SignatureAlgorithm" Type="Edm.String" Nullable="true" MaxLength="60"/>
+        <Property Name="Version" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="FingerprintSha1" Type="Edm.String" Nullable="true" MaxLength="200"/>
+        <Property Name="FingerprintSha256" Type="Edm.String" Nullable="true" MaxLength="200"/>
+        <Property Name="FingerprintSha512" Type="Edm.String" Nullable="true" MaxLength="200"/>
+        <NavigationProperty Name="KeystoreEntry" Relationship="com.sap.hci.api.CertificateChainOfKeyPair" FromRole="r_ChainCertificates" ToRole="r_KeystoreEntry"/>
+      </EntityType>
+      <EntityType Name="SSHKeyResource" BaseType="com.sap.hci.api.KeystoreEntryAlias" m:HasStream="true">
+        <NavigationProperty Name="KeystoreEntry" Relationship="com.sap.hci.api.A_KeystoreEntry_SSHKeyResource" FromRole="r_Sshkey" ToRole="r_KeystoreEntry"/>
+      </EntityType>
+      <EntityType Name="KeyPairGenerationRequest" BaseType="com.sap.hci.api.KeystoreEntryCertificatePartBase">
+        <Property Name="KeyAlgorithmParameter" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="CommonName" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="OrganizationUnit" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="Organization" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="Locality" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="State" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="Country" Type="Edm.String" Nullable="true" MaxLength="2"/>
+        <Property Name="Email" Type="Edm.String" Nullable="true" MaxLength="500"/>
+      </EntityType>
+      <EntityType Name="CertificateSigningRequest" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Hexalias"/>
+        </Key>
+        <Property Name="Hexalias" Type="Edm.String" Nullable="false" MaxLength="2000"/>
+        <NavigationProperty Name="KeystoreEntry" Relationship="com.sap.hci.api.A_KeystoreEntry_CertificateSigningRequest" FromRole="r_SigningRequest" ToRole="r_KeystoreEntry"/>
+      </EntityType>
+      <EntityType Name="CertificateResource" BaseType="com.sap.hci.api.KeystoreEntryAlias" m:HasStream="true">
+        <NavigationProperty Name="KeystoreEntry" Relationship="com.sap.hci.api.A_KeystoreEntry_CertificateResource" FromRole="r_Certificate" ToRole="r_KeystoreEntry"/>
+      </EntityType>
+      <EntityType Name="CertificateChainResource" BaseType="com.sap.hci.api.KeystoreEntryAlias" m:HasStream="true">
+        <NavigationProperty Name="KeystoreEntry" Relationship="com.sap.hci.api.A_KeystoreEntry_CertificateChainResource" FromRole="r_ChainResource" ToRole="r_KeystoreEntry"/>
+      </EntityType>
+      <EntityType Name="KeystoreResource">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="100"/>
+        <Property Name="Resource" Type="Edm.Binary" Nullable="true" MaxLength="2097152"/>
+        <Property Name="Password" Type="Edm.String" Nullable="true" MaxLength="300"/>
+        <Property Name="Aliases" Type="Edm.String" Nullable="true" MaxLength="2097152"/>
+      </EntityType>
+      <EntityType Name="Keystore">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="100"/>
+        <Property Name="LastModifiedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="LastModifiedTime" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <Property Name="Size" Type="Edm.Int32" Nullable="true"/>
+        <NavigationProperty Name="Entries" Relationship="com.sap.hci.api.EntriesOfKeystore" FromRole="r_Keystore" ToRole="r_Entries"/>
+      </EntityType>
+      <EntityType Name="SecurityArtifact">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="SSHKeyGenerationRequest" BaseType="com.sap.hci.api.KeystoreEntryCertificatePartBase">
+        <Property Name="SSHFile" Type="Edm.String" Nullable="true" MaxLength="10000"/>
+        <Property Name="Password" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="KeyAlgorithmParameter" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="CommonName" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="OrganizationUnit" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="Organization" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="Locality" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="State" Type="Edm.String" Nullable="true" MaxLength="500"/>
+        <Property Name="Country" Type="Edm.String" Nullable="true" MaxLength="2"/>
+        <Property Name="Email" Type="Edm.String" Nullable="true" MaxLength="500"/>
+      </EntityType>
+      <EntityType Name="SSHKeyResource" BaseType="com.sap.hci.api.KeystoreEntryAlias" m:HasStream="true">
+        <NavigationProperty Name="KeystoreEntry" Relationship="com.sap.hci.api.A_KeystoreEntry_SSHKeyResource" FromRole="r_Sshkey" ToRole="r_KeystoreEntry"/>
+      </EntityType>
+      <EntityType Name="Parameter">
+        <Key>
+          <PropertyRef Name="Pid"/>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Pid" Type="Edm.String" Nullable="false" MaxLength="60"/>
+        <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="1500"/>
+        <Property Name="LastModifiedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="LastModifiedTime" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="CreatedTime" Type="Edm.DateTime" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="UserCredentialParameter" BaseType="com.sap.hci.api.Parameter">
+        <Property Name="User" Type="Edm.String" Nullable="false" MaxLength="200"/>
+        <Property Name="Password" Type="Edm.String" Nullable="true" MaxLength="200"/>
+      </EntityType>
+      <EntityType Name="UserCredential">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Kind" Type="Edm.String" Nullable="true"/>
+        <Property Name="Description" Type="Edm.String" Nullable="true"/>
+        <Property Name="User" Type="Edm.String" Nullable="true"/>
+        <Property Name="Password" Type="Edm.String" Nullable="true"/>
+        <Property Name="CompanyId" Type="Edm.String" Nullable="true"/>
+        <Property Name="SecurityArtifactDescriptor" Type="com.sap.hci.api.SecurityArtifactDescriptor" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="OAuth2ClientCredential">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Description" Type="Edm.String" Nullable="true"/>
+        <Property Name="TokenServiceUrl" Type="Edm.String" Nullable="false"/>
+        <Property Name="ClientId" Type="Edm.String" Nullable="false"/>
+        <Property Name="ClientSecret" Type="Edm.String" Nullable="true"/>
+        <Property Name="ClientAuthentication" Type="Edm.String" Nullable="true"/>
+        <Property Name="Scope" Type="Edm.String" Nullable="true"/>
+        <Property Name="ScopeContentType" Type="Edm.String" Nullable="true"/>
+        <Property Name="SecurityArtifactDescriptor" Type="com.sap.hci.api.SecurityArtifactDescriptor" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="Configuration">
+        <Key>
+          <PropertyRef Name="ParameterKey"/>
+        </Key>
+        <Property Name="ParameterKey" Type="Edm.String" Nullable="false"/>
+        <Property Name="ParameterValue" Type="Edm.String" Nullable="true"/>
+        <Property Name="DataType" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="Resource" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Name"/>
+          <PropertyRef Name="ResourceType"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="ResourceType" Type="Edm.String" Nullable="false"/>
+        <Property Name="ReferencedResourceType" Type="Edm.String" Nullable="true"/>
+        <Property Name="ResourceContent" Type="Edm.Binary" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="IntegrationDesigntimeArtifact" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Id"/>
+          <PropertyRef Name="Version"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="Version" Type="Edm.String" Nullable="false"/>
+        <Property Name="PackageId" Type="Edm.String" Nullable="true"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="Description" Type="Edm.String" Nullable="true"/>
+        <Property Name="ArtifactContent" Type="Edm.Binary" Nullable="true"/>
+        <NavigationProperty Name="Configurations" Relationship="com.sap.hci.api.IntegrationDesigntimeArtifact_2_r_Configurations" FromRole="IntegrationDesigntimeArtifact" ToRole="r_Configurations"/>
+        <NavigationProperty Name="Resources" Relationship="com.sap.hci.api.IntegrationDesigntimeArtifact_2_r_Resources" FromRole="IntegrationDesigntimeArtifact" ToRole="r_Resources"/>
+      </EntityType>
+      <EntityType Name="Definition">
+        <Key>
+          <PropertyRef Name="Url"/>
+        </Key>
+        <Property Name="Url" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="ServiceEndpoint">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="Title" Type="Edm.String" Nullable="false"/>
+        <Property Name="Version" Type="Edm.String" Nullable="false"/>
+        <Property Name="Summary" Type="Edm.String" Nullable="false"/>
+        <Property Name="Description" Type="Edm.String" Nullable="false"/>
+        <Property Name="LastUpdated" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="Protocol" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="EntryPoints" Relationship="com.sap.hci.api.ServiceEndpoint_2_r_EntryPoints" FromRole="ServiceEndpoint" ToRole="r_EntryPoints"/>
+        <NavigationProperty Name="ApiDefinitions" Relationship="com.sap.hci.api.ServiceEndpoint_2_r_ApiDefinitions" FromRole="ServiceEndpoint" ToRole="r_ApiDefinitions"/>
+      </EntityType>
+      <EntityType Name="IntegrationPackage" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Description" Type="Edm.String" Nullable="true"/>
+        <Property Name="ShortText" Type="Edm.String" Nullable="false"/>
+        <Property Name="Version" Type="Edm.String" Nullable="true"/>
+        <Property Name="Vendor" Type="Edm.String" Nullable="true"/>
+        <Property Name="Mode" Type="Edm.String" Nullable="true"/>
+        <Property Name="SupportedPlatform" Type="Edm.String" Nullable="true"/>
+        <Property Name="ModifiedBy" Type="Edm.String" Nullable="true"/>
+        <Property Name="CreationDate" Type="Edm.String" Nullable="true"/>
+        <Property Name="ModifiedDate" Type="Edm.String" Nullable="true"/>
+        <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+        <Property Name="Products" Type="Edm.String" Nullable="true"/>
+        <Property Name="Keywords" Type="Edm.String" Nullable="true"/>
+        <Property Name="Countries" Type="Edm.String" Nullable="true"/>
+        <Property Name="Industries" Type="Edm.String" Nullable="true"/>
+        <Property Name="LineOfBusiness" Type="Edm.String" Nullable="true"/>
+        <Property Name="PackageContent" Type="Edm.Binary" Nullable="true"/>
+        <NavigationProperty Name="IntegrationDesigntimeArtifacts" Relationship="com.sap.hci.api.IntegrationPackage_2_r_IntegrationDesigntimeArtifacts" FromRole="IntegrationPackage" ToRole="r_IntegrationDesigntimeArtifacts"/>
+        <NavigationProperty Name="ValueMappingDesigntimeArtifacts" Relationship="com.sap.hci.api.IntegrationPackage_2_r_ValueMappingDesigntimeArtifacts" FromRole="IntegrationPackage" ToRole="r_ValueMappingDesigntimeArtifacts"/>
+      </EntityType>
+      <EntityType Name="ValueMappingDesigntimeArtifact" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Id"/>
+          <PropertyRef Name="Version"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="Version" Type="Edm.String" Nullable="false"/>
+        <Property Name="PackageId" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Description" Type="Edm.String" Nullable="true"/>
+        <Property Name="ArtifactContent" Type="Edm.Binary" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="EntryPoint">
+        <Key>
+          <PropertyRef Name="Url"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Url" Type="Edm.String" Nullable="false"/>
+        <Property Name="Type" Type="Edm.String" Nullable="true"/>
+        <Property Name="AdditionalInformation" Type="Edm.String" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="IdempotentRepositoryEntry">
+        <Key>
+          <PropertyRef Name="HexSource"/>
+          <PropertyRef Name="HexEntry"/>
+        </Key>
+        <Property Name="HexSource" Type="Edm.String" Nullable="false"/>
+        <Property Name="HexEntry" Type="Edm.String" Nullable="false"/>
+        <Property Name="Source" Type="Edm.String" Nullable="true"/>
+        <Property Name="Entry" Type="Edm.String" Nullable="true"/>
+        <Property Name="Component" Type="Edm.String" Nullable="true"/>
+        <Property Name="CreationTime" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="ExpirationTime" Type="Edm.Int64" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="IdMapFromId">
+        <Key>
+          <PropertyRef Name="FromId"/>
+        </Key>
+        <Property Name="FromId" Type="Edm.String" Nullable="false"/>
+        <NavigationProperty Name="ToIds" Relationship="com.sap.hci.api.ToIdsForFromId" FromRole="r_FromId" ToRole="r_ToIds"/>
+      </EntityType>
+      <EntityType Name="IdMapToId">
+        <Key>
+          <PropertyRef Name="ToId"/>
+        </Key>
+        <Property Name="ToId" Type="Edm.String" Nullable="false"/>
+        <Property Name="FromId_" Type="Edm.String" Nullable="true"/>
+        <Property Name="Mapper" Type="Edm.String" Nullable="true"/>
+        <Property Name="ExpirationTime" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <NavigationProperty Name="FromId" Relationship="com.sap.hci.api.ToIdsForFromId" FromRole="r_ToIds" ToRole="r_FromId"/>
+        <NavigationProperty Name="FromId2s" Relationship="com.sap.hci.api.ToIdsForFromId2" FromRole="r_ToId" ToRole="r_FromId2s"/>
+      </EntityType>
+      <EntityType Name="IdMapFromId2">
+        <Key>
+          <PropertyRef Name="FromId"/>
+        </Key>
+        <Property Name="FromId" Type="Edm.String" Nullable="false"/>
+        <Property Name="ToId2" Type="Edm.String" Nullable="true"/>
+        <Property Name="Mapper" Type="Edm.String" Nullable="true"/>
+        <Property Name="ExpirationTime" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <NavigationProperty Name="ToId" Relationship="com.sap.hci.api.ToIdsForFromId2" FromRole="r_FromId2s" ToRole="r_ToId"/>
+      </EntityType>
+      <EntityType Name="IdMapToId">
+        <Key>
+          <PropertyRef Name="ToId"/>
+        </Key>
+        <Property Name="ToId" Type="Edm.String" Nullable="false"/>
+        <Property Name="FromId_" Type="Edm.String" Nullable="true"/>
+        <Property Name="Mapper" Type="Edm.String" Nullable="true"/>
+        <Property Name="ExpirationTime" Type="Edm.DateTimeOffset" Nullable="true"/>
+        <NavigationProperty Name="FromId" Relationship="com.sap.hci.api.ToIdsForFromId" FromRole="r_ToIds" ToRole="r_FromId"/>
+        <NavigationProperty Name="FromId2s" Relationship="com.sap.hci.api.ToIdsForFromId2" FromRole="r_ToId" ToRole="r_FromId2s"/>
+      </EntityType>
+      <EntityType Name="Lock">
+        <Key>
+          <PropertyRef Name="Component"/>
+          <PropertyRef Name="HexSource"/>
+          <PropertyRef Name="HexEntry"/>
+        </Key>
+        <Property Name="Component" Type="Edm.String" Nullable="false"/>
+        <Property Name="HexSource" Type="Edm.String" Nullable="false"/>
+        <Property Name="HexEntry" Type="Edm.String" Nullable="false"/>
+        <Property Name="Source" Type="Edm.String" Nullable="true"/>
+        <Property Name="Entry" Type="Edm.String" Nullable="true"/>
+        <Property Name="CreationTime" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="ExpirationTime" Type="Edm.Int64" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="JmsMessage" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="Msgid"/>
+          <PropertyRef Name="Name"/>
+          <PropertyRef Name="Failed"/>
+        </Key>
+        <Property Name="Msgid" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Failed" Type="Edm.Boolean" Nullable="false"/>
+        <Property Name="Mplid" Type="Edm.String" Nullable="true"/>
+        <Property Name="CreatedAt" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="RetryCount" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="NextRetry" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="MimeMsgid" Type="Edm.String" Nullable="true"/>
+        <Property Name="ContentType" Type="Edm.String" Nullable="true"/>
+        <Property Name="MimeVersion" Type="Edm.String" Nullable="true"/>
+        <Property Name="OverdueAt" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="ExpirationDate" Type="Edm.Int64" Nullable="true"/>
+        <NavigationProperty Name="Queue" Relationship="com.sap.hci.api.MessagesInQueue" FromRole="r_Messages" ToRole="r_Queue"/>
+      </EntityType>
+      <EntityType Name="Queue">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="NumbOfMsgs" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="Size" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="Type" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="State" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="FillGrade" Type="Edm.Int64" Nullable="true"/>
+        <NavigationProperty Name="Messages" Relationship="com.sap.hci.api.MessagesInQueue" FromRole="r_Queue" ToRole="r_Messages"/>
+        <NavigationProperty Name="Artifacts" Relationship="com.sap.hci.api.ArtifactsForQueue" FromRole="r_Queue" ToRole="r_Artifacts"/>
+        <NavigationProperty Name="JmsQueues" Relationship="com.sap.hci.api.JmsQueuesForQueue" FromRole="r_Queue" ToRole="r_JmsQueues"/>
+      </EntityType>
+      <EntityType Name="JmsQueue">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="MaxQueueSize" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="QueueSize" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="State" Type="Edm.Int64" Nullable="true"/>
+        <NavigationProperty Name="Queue" Relationship="com.sap.hci.api.JmsQueuesForQueue" FromRole="r_JmsQueues" ToRole="r_Queue"/>
+      </EntityType>
+      <EntityType Name="JmsBroker">
+        <Key>
+          <PropertyRef Name="Key"/>
+        </Key>
+        <Property Name="Key" Type="Edm.String" Nullable="false"/>
+        <Property Name="Capacity" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="MaxCapacity" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="IsTransactedSessionsHigh" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="IsConsumersHigh" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="IsProducersHigh" Type="Edm.Int32" Nullable="true"/>
+        <Property Name="MaxQueueNumber" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="QueueNumber" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="CapacityOk" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="CapacityWarning" Type="Edm.Int64" Nullable="true"/>
+        <Property Name="CapacityError" Type="Edm.Int64" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="JmsArtifact">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Id" Type="Edm.String" Nullable="true"/>
+        <Property Name="Direction" Type="Edm.Int64" Nullable="true"/>
+        <NavigationProperty Name="Queue" Relationship="com.sap.hci.api.ArtifactsForQueue" FromRole="r_Artifacts" ToRole="r_Queue"/>
+      </EntityType>
+      <EntityType Name="WNNode">
+        <Key>
+          <PropertyRef Name="Type"/>
+        </Key>
+        <Property Name="Type" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Parameter">
+        <Key>
+          <PropertyRef Name="Pid"/>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Pid" Type="Edm.String" Nullable="false" MaxLength="60"/>
+        <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="1500"/>
+        <Property Name="LastModifiedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="LastModifiedTime" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="CreatedTime" Type="Edm.DateTime" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="StringParameter" BaseType="com.sap.hci.api.Parameter">
+        <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="4000"/>
+      </EntityType>
+      <EntityType Name="BinaryParameter" BaseType="com.sap.hci.api.Parameter">
+        <Property Name="ContentType" Type="Edm.String" Nullable="false" MaxLength="300"/>
+        <Property Name="Value" Type="Edm.Binary" Nullable="false" MaxLength="262144"/>
+      </EntityType>
+      <EntityType Name="AlternativePartner">
+        <Key>
+          <PropertyRef Name="Hexagency"/>
+          <PropertyRef Name="Hexscheme"/>
+          <PropertyRef Name="Hexid"/>
+        </Key>
+        <Property Name="Hexagency" Type="Edm.String" Nullable="false" MaxLength="480"/>
+        <Property Name="Hexscheme" Type="Edm.String" Nullable="false" MaxLength="480"/>
+        <Property Name="Hexid" Type="Edm.String" Nullable="false" MaxLength="240"/>
+        <Property Name="Agency" Type="Edm.String" Nullable="false" MaxLength="120"/>
+        <Property Name="Scheme" Type="Edm.String" Nullable="false" MaxLength="120"/>
+        <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="60"/>
+        <Property Name="Pid" Type="Edm.String" Nullable="false" MaxLength="60"/>
+        <Property Name="LastModifiedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="LastModifiedTime" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="CreatedTime" Type="Edm.DateTime" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="AuthorizedUser">
+        <Key>
+          <PropertyRef Name="User"/>
+        </Key>
+        <Property Name="User" Type="Edm.String" Nullable="false" MaxLength="150"/>
+        <Property Name="Pid" Type="Edm.String" Nullable="false" MaxLength="60"/>
+        <Property Name="LastModifiedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="LastModifiedTime" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="150"/>
+        <Property Name="CreatedTime" Type="Edm.DateTime" Nullable="true"/>
+      </EntityType>
+      <EntityType Name="Partner">
+        <Key>
+          <PropertyRef Name="Pid"/>
+        </Key>
+        <Property Name="Pid" Type="Edm.String" Nullable="false" MaxLength="60"/>
+      </EntityType>
+      <EntityType Name="NodeProfile">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <NavigationProperty Name="Roles" Relationship="com.sap.hci.api.RolesForProfile" FromRole="r_NodeProfile" ToRole="r_Roles"/>
+      </EntityType>
+      <EntityType Name="Role">
+        <Key>
+          <PropertyRef Name="Name"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <NavigationProperty Name="NodeProfile" Relationship="com.sap.hci.api.RolesForProfile" FromRole="r_Roles" ToRole="r_NodeProfile"/>
+      </EntityType>
+      <EntityType Name="XiDataStore">
+        <Key>
+          <PropertyRef Name="Name"/>
+          <PropertyRef Name="Qualifier"/>
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false"/>
+        <Property Name="Qualifier" Type="Edm.String" Nullable="false"/>
+        <Property Name="Participant" Type="Edm.String" Nullable="false"/>
+        <Property Name="Channel" Type="Edm.String" Nullable="false"/>
+        <NavigationProperty Name="Artifact" Relationship="com.sap.hci.api.XiDataStoresForArtifact" FromRole="r_DataStores" ToRole="r_Artifact"/>
+      </EntityType>
+      <EntityType Name="XiDataStoreArtifact">
+        <Key>
+          <PropertyRef Name="Id"/>
+        </Key>
+        <Property Name="Id" Type="Edm.String" Nullable="false"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <NavigationProperty Name="DataStores" Relationship="com.sap.hci.api.XiDataStoresForArtifact" FromRole="r_Artifact" ToRole="r_DataStores"/>
+      </EntityType>
+      <ComplexType Name="IntegrationArtifact">
+        <Property Name="Id" Type="Edm.String" Nullable="true"/>
+        <Property Name="Name" Type="Edm.String" Nullable="true"/>
+        <Property Name="Type" Type="Edm.String" Nullable="true"/>
+      </ComplexType>
+      <ComplexType Name="SecurityArtifactDescriptor">
+        <Property Name="Type" Type="Edm.String" Nullable="true"/>
+        <Property Name="DeployedBy" Type="Edm.String" Nullable="true"/>
+        <Property Name="DeployedOn" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="Status" Type="Edm.String" Nullable="true"/>
+      </ComplexType>
+      <ComplexType Name="SecurityArtifactDescriptor">
+        <Property Name="Type" Type="Edm.String" Nullable="true"/>
+        <Property Name="DeployedBy" Type="Edm.String" Nullable="true"/>
+        <Property Name="DeployedOn" Type="Edm.DateTime" Nullable="true"/>
+        <Property Name="Status" Type="Edm.String" Nullable="true"/>
+      </ComplexType>
+      <Association Name="MessageStoreEntry_2_r_Attachments">
+        <End Type="com.sap.hci.api.MessageStoreEntry" Multiplicity="1" Role="MessageStoreEntry"/>
+        <End Type="com.sap.hci.api.MessageStoreEntryAttachment" Multiplicity="*" Role="r_Attachments"/>
+      </Association>
+      <Association Name="TraceMessage_2_r_Properties">
+        <End Type="com.sap.hci.api.TraceMessage" Multiplicity="1" Role="TraceMessage"/>
+        <End Type="com.sap.hci.api.TraceMessageProperty" Multiplicity="*" Role="r_Properties"/>
+      </Association>
+      <Association Name="MessageProcessingLogAdapterAttributesAss">
+        <End Type="com.sap.hci.api.MessageProcessingLogAdapterAttribute" Multiplicity="*" Role="r_AdapterAttributes"/>
+        <End Type="com.sap.hci.api.MessageProcessingLog" Multiplicity="0..1" Role="r_MessageProcessingLog"/>
+      </Association>
+      <Association Name="MessageProcessingLog_2_r_ErrorInformation">
+        <End Type="com.sap.hci.api.MessageProcessingLog" Multiplicity="1" Role="MessageProcessingLog"/>
+        <End Type="com.sap.hci.api.MessageProcessingLogErrorInformation" Multiplicity="0..1" Role="r_ErrorInformation"/>
+      </Association>
+      <Association Name="MessageProcessingLogRunStep_2_r_RunStepProperties">
+        <End Type="com.sap.hci.api.MessageProcessingLogRunStep" Multiplicity="1" Role="MessageProcessingLogRunStep"/>
+        <End Type="com.sap.hci.api.MessageProcessingLogRunStepProperty" Multiplicity="*" Role="r_RunStepProperties"/>
+      </Association>
+      <Association Name="MessageProcessingLog_2_r_Runs">
+        <End Type="com.sap.hci.api.MessageProcessingLog" Multiplicity="1" Role="MessageProcessingLog"/>
+        <End Type="com.sap.hci.api.MessageProcessingLogRun" Multiplicity="*" Role="r_Runs"/>
+      </Association>
+      <Association Name="TraceMessage_2_r_ExchangeProperties">
+        <End Type="com.sap.hci.api.TraceMessage" Multiplicity="1" Role="TraceMessage"/>
+        <End Type="com.sap.hci.api.TraceMessageExchangeProperty" Multiplicity="*" Role="r_ExchangeProperties"/>
+      </Association>
+      <Association Name="MessageStoreEntry_2_r_Properties">
+        <End Type="com.sap.hci.api.MessageStoreEntry" Multiplicity="1" Role="MessageStoreEntry"/>
+        <End Type="com.sap.hci.api.MessageStoreEntryProperty" Multiplicity="*" Role="r_Properties"/>
+      </Association>
+      <Association Name="MessageProcessingLogRun_2_r_RunSteps">
+        <End Type="com.sap.hci.api.MessageProcessingLogRun" Multiplicity="1" Role="MessageProcessingLogRun"/>
+        <End Type="com.sap.hci.api.MessageProcessingLogRunStep" Multiplicity="*" Role="r_RunSteps"/>
+      </Association>
+      <Association Name="MessageStoreEntryAttachment_2_r_Properties">
+        <End Type="com.sap.hci.api.MessageStoreEntryAttachment" Multiplicity="1" Role="MessageStoreEntryAttachment"/>
+        <End Type="com.sap.hci.api.MessageStoreEntryAttachmentProperty" Multiplicity="*" Role="r_Properties"/>
+      </Association>
+      <Association Name="MessageProcessingLogCustomHeaderPropertiesAss">
+        <End Type="com.sap.hci.api.MessageProcessingLog" Multiplicity="0..1" Role="r_Log"/>
+        <End Type="com.sap.hci.api.MessageProcessingLogCustomHeaderProperty" Multiplicity="*" Role="r_CustomHeaderProperties"/>
+      </Association>
+      <Association Name="MessageProcessingLogRunStep_2_r_TraceMessages">
+        <End Type="com.sap.hci.api.MessageProcessingLogRunStep" Multiplicity="1" Role="MessageProcessingLogRunStep"/>
+        <End Type="com.sap.hci.api.TraceMessage" Multiplicity="*" Role="r_TraceMessages"/>
+      </Association>
+      <Association Name="MessageProcessingLog_2_r_MessageStoreEntries">
+        <End Type="com.sap.hci.api.MessageProcessingLog" Multiplicity="1" Role="MessageProcessingLog"/>
+        <End Type="com.sap.hci.api.MessageStoreEntry" Multiplicity="*" Role="r_MessageStoreEntries"/>
+      </Association>
+      <Association Name="MessageProcessingLog_2_r_Attachments">
+        <End Type="com.sap.hci.api.MessageProcessingLog" Multiplicity="1" Role="MessageProcessingLog"/>
+        <End Type="com.sap.hci.api.MessageProcessingLogAttachment" Multiplicity="*" Role="r_Attachments"/>
+      </Association>
+      <Association Name="r_AccessPolicy_2_r_ArtifactReferences">
+        <End Type="com.sap.hci.api.ArtifactReference" Multiplicity="*" Role="r_ArtifactReferences"/>
+        <End Type="com.sap.hci.api.AccessPolicy" Multiplicity="1" Role="r_AccessPolicy"/>
+      </Association>
+      <Association Name="A_KeystoreEntry_SSHKeyResource">
+        <End Type="com.sap.hci.api.KeystoreEntry" Multiplicity="0..1" Role="r_KeystoreEntry"/>
+        <End Type="com.sap.hci.api.SSHKeyResource" Multiplicity="0..1" Role="r_Sshkey"/>
+      </Association>
+      <Association Name="A_KeystoreEntry_CertificateChainResource">
+        <End Type="com.sap.hci.api.KeystoreEntry" Multiplicity="0..1" Role="r_KeystoreEntry"/>
+        <End Type="com.sap.hci.api.CertificateChainResource" Multiplicity="0..1" Role="r_ChainResource"/>
+      </Association>
+      <Association Name="A_KeystoreEntry_CertificateResource">
+        <End Type="com.sap.hci.api.KeystoreEntry" Multiplicity="0..1" Role="r_KeystoreEntry"/>
+        <End Type="com.sap.hci.api.CertificateResource" Multiplicity="0..1" Role="r_Certificate"/>
+      </Association>
+      <Association Name="CertificateChainOfKeyPair">
+        <End Type="com.sap.hci.api.KeystoreEntry" Multiplicity="0..1" Role="r_KeystoreEntry"/>
+        <End Type="com.sap.hci.api.ChainCertificate" Multiplicity="*" Role="r_ChainCertificates"/>
+      </Association>
+      <Association Name="A_KeystoreEntry_CertificateSigningRequest">
+        <End Type="com.sap.hci.api.KeystoreEntry" Multiplicity="0..1" Role="r_KeystoreEntry"/>
+        <End Type="com.sap.hci.api.CertificateSigningRequest" Multiplicity="0..1" Role="r_SigningRequest"/>
+      </Association>
+      <Association Name="EntriesOfKeystore">
+        <End Type="com.sap.hci.api.KeystoreEntry" Multiplicity="*" Role="r_Entries"/>
+        <End Type="com.sap.hci.api.Keystore" Multiplicity="0..1" Role="r_Keystore"/>
+      </Association>
+      <Association Name="ServiceEndpoint_2_r_EntryPoints">
+        <End Type="com.sap.hci.api.ServiceEndpoint" Multiplicity="1" Role="ServiceEndpoint"/>
+        <End Type="com.sap.hci.api.EntryPoint" Multiplicity="*" Role="r_EntryPoints"/>
+      </Association>
+      <Association Name="IntegrationPackage_2_r_ValueMappingDesigntimeArtifacts">
+        <End Type="com.sap.hci.api.IntegrationPackage" Multiplicity="1" Role="IntegrationPackage"/>
+        <End Type="com.sap.hci.api.ValueMappingDesigntimeArtifact" Multiplicity="*" Role="r_ValueMappingDesigntimeArtifacts"/>
+      </Association>
+      <Association Name="IntegrationDesigntimeArtifact_2_r_Configurations">
+        <End Type="com.sap.hci.api.IntegrationDesigntimeArtifact" Multiplicity="1" Role="IntegrationDesigntimeArtifact"/>
+        <End Type="com.sap.hci.api.Configuration" Multiplicity="*" Role="r_Configurations"/>
+      </Association>
+      <Association Name="ServiceEndpoint_2_r_ApiDefinitions">
+        <End Type="com.sap.hci.api.ServiceEndpoint" Multiplicity="1" Role="ServiceEndpoint"/>
+        <End Type="com.sap.hci.api.Definition" Multiplicity="*" Role="r_ApiDefinitions"/>
+      </Association>
+      <Association Name="IntegrationPackage_2_r_IntegrationDesigntimeArtifacts">
+        <End Type="com.sap.hci.api.IntegrationPackage" Multiplicity="1" Role="IntegrationPackage"/>
+        <End Type="com.sap.hci.api.IntegrationDesigntimeArtifact" Multiplicity="*" Role="r_IntegrationDesigntimeArtifacts"/>
+      </Association>
+      <Association Name="IntegrationDesigntimeArtifact_2_r_Resources">
+        <End Type="com.sap.hci.api.IntegrationDesigntimeArtifact" Multiplicity="1" Role="IntegrationDesigntimeArtifact"/>
+        <End Type="com.sap.hci.api.Resource" Multiplicity="*" Role="r_Resources"/>
+      </Association>
+      <Association Name="XiDataStoresForArtifact">
+        <End Type="com.sap.hci.api.XiDataStore" Multiplicity="*" Role="r_DataStores"/>
+        <End Type="com.sap.hci.api.XiDataStoreArtifact" Multiplicity="0..1" Role="r_Artifact"/>
+      </Association>
+      <Association Name="RolesForProfile">
+        <End Type="com.sap.hci.api.NodeProfile" Multiplicity="0..1" Role="r_NodeProfile"/>
+        <End Type="com.sap.hci.api.Role" Multiplicity="*" Role="r_Roles"/>
+      </Association>
+      <Association Name="ArtifactsForQueue">
+        <End Type="com.sap.hci.api.Queue" Multiplicity="0..1" Role="r_Queue"/>
+        <End Type="com.sap.hci.api.JmsArtifact" Multiplicity="*" Role="r_Artifacts"/>
+      </Association>
+      <Association Name="ToIdsForFromId2">
+        <End Type="com.sap.hci.api.IdMapToId" Multiplicity="0..1" Role="r_ToId"/>
+        <End Type="com.sap.hci.api.IdMapFromId2" Multiplicity="*" Role="r_FromId2s"/>
+      </Association>
+      <Association Name="JmsQueuesForQueue">
+        <End Type="com.sap.hci.api.Queue" Multiplicity="1" Role="r_Queue"/>
+        <End Type="com.sap.hci.api.JmsQueue" Multiplicity="*" Role="r_JmsQueues"/>
+      </Association>
+      <Association Name="MessagesInQueue">
+        <End Type="com.sap.hci.api.JmsMessage" Multiplicity="*" Role="r_Messages"/>
+        <End Type="com.sap.hci.api.Queue" Multiplicity="0..1" Role="r_Queue"/>
+      </Association>
+      <Association Name="ToIdsForFromId">
+        <End Type="com.sap.hci.api.IdMapFromId" Multiplicity="0..1" Role="r_FromId"/>
+        <End Type="com.sap.hci.api.IdMapToId" Multiplicity="*" Role="r_ToIds"/>
+      </Association>
+      <EntityContainer Name="DefaultContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="MessageStoreEntryProperties" EntityType="com.sap.hci.api.MessageStoreEntryProperty"/>
+        <EntitySet Name="MessageProcessingLogRunStepProperties" EntityType="com.sap.hci.api.MessageProcessingLogRunStepProperty"/>
+        <EntitySet Name="AuditLogs" EntityType="com.sap.hci.api.AuditLog"/>
+        <EntitySet Name="MessageProcessingLogRunSteps" EntityType="com.sap.hci.api.MessageProcessingLogRunStep"/>
+        <EntitySet Name="TraceMessageProperties" EntityType="com.sap.hci.api.TraceMessageProperty"/>
+        <EntitySet Name="MessageStoreEntries" EntityType="com.sap.hci.api.MessageStoreEntry"/>
+        <EntitySet Name="ArtifactReferences" EntityType="com.sap.hci.api.ArtifactReference"/>
+        <EntitySet Name="MessageProcessingLogAdapterAttributes" EntityType="com.sap.hci.api.MessageProcessingLogAdapterAttribute"/>
+        <EntitySet Name="MessageProcessingLogErrorInformations" EntityType="com.sap.hci.api.MessageProcessingLogErrorInformation"/>
+        <EntitySet Name="MessageStoreEntryAttachments" EntityType="com.sap.hci.api.MessageStoreEntryAttachment"/>
+        <EntitySet Name="TraceMessageExchangeProperties" EntityType="com.sap.hci.api.TraceMessageExchangeProperty"/>
+        <EntitySet Name="TraceMessages" EntityType="com.sap.hci.api.TraceMessage"/>
+        <EntitySet Name="MessageProcessingLogAttachments" EntityType="com.sap.hci.api.MessageProcessingLogAttachment"/>
+        <EntitySet Name="MessageProcessingLogs" EntityType="com.sap.hci.api.MessageProcessingLog"/>
+        <EntitySet Name="MessageProcessingLogRuns" EntityType="com.sap.hci.api.MessageProcessingLogRun"/>
+        <EntitySet Name="MessageStoreEntryAttachmentProperties" EntityType="com.sap.hci.api.MessageStoreEntryAttachmentProperty"/>
+        <EntitySet Name="AccessPolicies" EntityType="com.sap.hci.api.AccessPolicy"/>
+        <EntitySet Name="MessageProcessingLogCustomHeaderProperties" EntityType="com.sap.hci.api.MessageProcessingLogCustomHeaderProperty"/>
+        <EntitySet Name="KeystoreEntries" EntityType="com.sap.hci.api.KeystoreEntry"/>
+        <EntitySet Name="HistoryKeystoreEntries" EntityType="com.sap.hci.api.HistoryKeystoreEntry"/>
+        <EntitySet Name="KeyPairResources" EntityType="com.sap.hci.api.KeyPairResource"/>
+        <EntitySet Name="ChainCertificates" EntityType="com.sap.hci.api.ChainCertificate"/>
+        <EntitySet Name="SSHKeyResources" EntityType="com.sap.hci.api.SSHKeyResource"/>
+        <EntitySet Name="KeyPairGenerationRequests" EntityType="com.sap.hci.api.KeyPairGenerationRequest"/>
+        <EntitySet Name="CertificateSigningRequests" EntityType="com.sap.hci.api.CertificateSigningRequest"/>
+        <EntitySet Name="CertificateResources" EntityType="com.sap.hci.api.CertificateResource"/>
+        <EntitySet Name="CertificateChainResources" EntityType="com.sap.hci.api.CertificateChainResource"/>
+        <EntitySet Name="KeystoreResources" EntityType="com.sap.hci.api.KeystoreResource"/>
+        <EntitySet Name="Keystores" EntityType="com.sap.hci.api.Keystore"/>
+        <EntitySet Name="SecurityArtifacts" EntityType="com.sap.hci.api.SecurityArtifact"/>
+        <EntitySet Name="SSHKeyGenerationRequests" EntityType="com.sap.hci.api.SSHKeyGenerationRequest"/>
+        <EntitySet Name="SSHKeyResources" EntityType="com.sap.hci.api.SSHKeyResource"/>
+        <EntitySet Name="UserCredentialParameters" EntityType="com.sap.hci.api.UserCredentialParameter"/>
+        <EntitySet Name="UserCredentials" EntityType="com.sap.hci.api.UserCredential"/>
+        <EntitySet Name="OAuth2ClientCredentials" EntityType="com.sap.hci.api.OAuth2ClientCredential"/>
+        <EntitySet Name="Configurations" EntityType="com.sap.hci.api.Configuration"/>
+        <EntitySet Name="Resources" EntityType="com.sap.hci.api.Resource"/>
+        <EntitySet Name="IntegrationDesigntimeArtifacts" EntityType="com.sap.hci.api.IntegrationDesigntimeArtifact"/>
+        <EntitySet Name="APIDefinitions" EntityType="com.sap.hci.api.Definition"/>
+        <EntitySet Name="ServiceEndpoints" EntityType="com.sap.hci.api.ServiceEndpoint"/>
+        <EntitySet Name="IntegrationPackages" EntityType="com.sap.hci.api.IntegrationPackage"/>
+        <EntitySet Name="ValueMappingDesigntimeArtifacts" EntityType="com.sap.hci.api.ValueMappingDesigntimeArtifact"/>
+        <EntitySet Name="EntryPoints" EntityType="com.sap.hci.api.EntryPoint"/>
+        <EntitySet Name="IdempotentRepositoryEntries" EntityType="com.sap.hci.api.IdempotentRepositoryEntry"/>
+        <EntitySet Name="IdMapFromIds" EntityType="com.sap.hci.api.IdMapFromId"/>
+        <EntitySet Name="IdMapToIds" EntityType="com.sap.hci.api.IdMapToId"/>
+        <EntitySet Name="IdMapFromId2s" EntityType="com.sap.hci.api.IdMapFromId2"/>
+        <EntitySet Name="IdMapToIds" EntityType="com.sap.hci.api.IdMapToId"/>
+        <EntitySet Name="Locks" EntityType="com.sap.hci.api.Lock"/>
+        <EntitySet Name="JmsMessages" EntityType="com.sap.hci.api.JmsMessage"/>
+        <EntitySet Name="Queues" EntityType="com.sap.hci.api.Queue"/>
+        <EntitySet Name="JmsQueues" EntityType="com.sap.hci.api.JmsQueue"/>
+        <EntitySet Name="JmsBrokers" EntityType="com.sap.hci.api.JmsBroker"/>
+        <EntitySet Name="JmsArtifacts" EntityType="com.sap.hci.api.JmsArtifact"/>
+        <EntitySet Name="WNNodes" EntityType="com.sap.hci.api.WNNode"/>
+        <EntitySet Name="StringParameters" EntityType="com.sap.hci.api.StringParameter"/>
+        <EntitySet Name="BinaryParameters" EntityType="com.sap.hci.api.BinaryParameter"/>
+        <EntitySet Name="AlternativePartners" EntityType="com.sap.hci.api.AlternativePartner"/>
+        <EntitySet Name="AuthorizedUsers" EntityType="com.sap.hci.api.AuthorizedUser"/>
+        <EntitySet Name="Partners" EntityType="com.sap.hci.api.Partner"/>
+        <EntitySet Name="NodeProfiles" EntityType="com.sap.hci.api.NodeProfile"/>
+        <EntitySet Name="Roles" EntityType="com.sap.hci.api.Role"/>
+        <EntitySet Name="XiDataStores" EntityType="com.sap.hci.api.XiDataStore"/>
+        <EntitySet Name="XiDataStoreArtifacts" EntityType="com.sap.hci.api.XiDataStoreArtifact"/>
+        <AssociationSet Name="MessageStoreEntry_2_r_Attachments" Association="com.sap.hci.api.MessageStoreEntry_2_r_Attachments">
+          <End EntitySet="MessageStoreEntries" Role="MessageStoreEntry"/>
+          <End EntitySet="MessageStoreEntryAttachments" Role="r_Attachments"/>
+        </AssociationSet>
+        <AssociationSet Name="TraceMessage_2_r_Properties" Association="com.sap.hci.api.TraceMessage_2_r_Properties">
+          <End EntitySet="TraceMessages" Role="TraceMessage"/>
+          <End EntitySet="TraceMessageProperties" Role="r_Properties"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLogAdapterAttributesAss" Association="com.sap.hci.api.MessageProcessingLogAdapterAttributesAss">
+          <End EntitySet="MessageProcessingLogAdapterAttributes" Role="r_AdapterAttributes"/>
+          <End EntitySet="MessageProcessingLogs" Role="r_MessageProcessingLog"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLog_2_r_ErrorInformation" Association="com.sap.hci.api.MessageProcessingLog_2_r_ErrorInformation">
+          <End EntitySet="MessageProcessingLogs" Role="MessageProcessingLog"/>
+          <End EntitySet="MessageProcessingLogErrorInformations" Role="r_ErrorInformation"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLogRunStep_2_r_RunStepProperties" Association="com.sap.hci.api.MessageProcessingLogRunStep_2_r_RunStepProperties">
+          <End EntitySet="MessageProcessingLogRunSteps" Role="MessageProcessingLogRunStep"/>
+          <End EntitySet="MessageProcessingLogRunStepProperties" Role="r_RunStepProperties"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLog_2_r_Runs" Association="com.sap.hci.api.MessageProcessingLog_2_r_Runs">
+          <End EntitySet="MessageProcessingLogs" Role="MessageProcessingLog"/>
+          <End EntitySet="MessageProcessingLogRuns" Role="r_Runs"/>
+        </AssociationSet>
+        <AssociationSet Name="TraceMessage_2_r_ExchangeProperties" Association="com.sap.hci.api.TraceMessage_2_r_ExchangeProperties">
+          <End EntitySet="TraceMessages" Role="TraceMessage"/>
+          <End EntitySet="TraceMessageExchangeProperties" Role="r_ExchangeProperties"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageStoreEntry_2_r_Properties" Association="com.sap.hci.api.MessageStoreEntry_2_r_Properties">
+          <End EntitySet="MessageStoreEntries" Role="MessageStoreEntry"/>
+          <End EntitySet="MessageStoreEntryProperties" Role="r_Properties"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLogRun_2_r_RunSteps" Association="com.sap.hci.api.MessageProcessingLogRun_2_r_RunSteps">
+          <End EntitySet="MessageProcessingLogRuns" Role="MessageProcessingLogRun"/>
+          <End EntitySet="MessageProcessingLogRunSteps" Role="r_RunSteps"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageStoreEntryAttachment_2_r_Properties" Association="com.sap.hci.api.MessageStoreEntryAttachment_2_r_Properties">
+          <End EntitySet="MessageStoreEntryAttachments" Role="MessageStoreEntryAttachment"/>
+          <End EntitySet="MessageStoreEntryAttachmentProperties" Role="r_Properties"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLogCustomHeaderPropertiesAss" Association="com.sap.hci.api.MessageProcessingLogCustomHeaderPropertiesAss">
+          <End EntitySet="MessageProcessingLogs" Role="r_Log"/>
+          <End EntitySet="MessageProcessingLogCustomHeaderProperties" Role="r_CustomHeaderProperties"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLogRunStep_2_r_TraceMessages" Association="com.sap.hci.api.MessageProcessingLogRunStep_2_r_TraceMessages">
+          <End EntitySet="MessageProcessingLogRunSteps" Role="MessageProcessingLogRunStep"/>
+          <End EntitySet="TraceMessages" Role="r_TraceMessages"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLog_2_r_MessageStoreEntries" Association="com.sap.hci.api.MessageProcessingLog_2_r_MessageStoreEntries">
+          <End EntitySet="MessageProcessingLogs" Role="MessageProcessingLog"/>
+          <End EntitySet="MessageStoreEntries" Role="r_MessageStoreEntries"/>
+        </AssociationSet>
+        <AssociationSet Name="MessageProcessingLog_2_r_Attachments" Association="com.sap.hci.api.MessageProcessingLog_2_r_Attachments">
+          <End EntitySet="MessageProcessingLogs" Role="MessageProcessingLog"/>
+          <End EntitySet="MessageProcessingLogAttachments" Role="r_Attachments"/>
+        </AssociationSet>
+        <AssociationSet Name="r_AccessPolicy_2_r_ArtifactReferences" Association="com.sap.hci.api.r_AccessPolicy_2_r_ArtifactReferences">
+          <End EntitySet="ArtifactReferences" Role="r_ArtifactReferences"/>
+          <End EntitySet="AccessPolicies" Role="r_AccessPolicy"/>
+        </AssociationSet>
+        <AssociationSet Name="A_KeystoreEntry_SSHKeyResource" Association="com.sap.hci.api.A_KeystoreEntry_SSHKeyResource">
+          <End EntitySet="KeystoreEntries" Role="r_KeystoreEntry"/>
+          <End EntitySet="SSHKeyResources" Role="r_Sshkey"/>
+        </AssociationSet>
+        <AssociationSet Name="A_KeystoreEntry_CertificateChainResource" Association="com.sap.hci.api.A_KeystoreEntry_CertificateChainResource">
+          <End EntitySet="KeystoreEntries" Role="r_KeystoreEntry"/>
+          <End EntitySet="CertificateChainResources" Role="r_ChainResource"/>
+        </AssociationSet>
+        <AssociationSet Name="A_KeystoreEntry_CertificateResource" Association="com.sap.hci.api.A_KeystoreEntry_CertificateResource">
+          <End EntitySet="KeystoreEntries" Role="r_KeystoreEntry"/>
+          <End EntitySet="CertificateResources" Role="r_Certificate"/>
+        </AssociationSet>
+        <AssociationSet Name="CertificateChainOfKeyPair" Association="com.sap.hci.api.CertificateChainOfKeyPair">
+          <End EntitySet="KeystoreEntries" Role="r_KeystoreEntry"/>
+          <End EntitySet="ChainCertificates" Role="r_ChainCertificates"/>
+        </AssociationSet>
+        <AssociationSet Name="A_KeystoreEntry_CertificateSigningRequest" Association="com.sap.hci.api.A_KeystoreEntry_CertificateSigningRequest">
+          <End EntitySet="KeystoreEntries" Role="r_KeystoreEntry"/>
+          <End EntitySet="CertificateSigningRequests" Role="r_SigningRequest"/>
+        </AssociationSet>
+        <AssociationSet Name="EntriesOfKeystore" Association="com.sap.hci.api.EntriesOfKeystore">
+          <End EntitySet="KeystoreEntries" Role="r_Entries"/>
+          <End EntitySet="Keystores" Role="r_Keystore"/>
+        </AssociationSet>
+        <AssociationSet Name="ServiceEndpoint_2_r_EntryPoints" Association="com.sap.hci.api.ServiceEndpoint_2_r_EntryPoints">
+          <End EntitySet="ServiceEndpoints" Role="ServiceEndpoint"/>
+          <End EntitySet="EntryPoints" Role="r_EntryPoints"/>
+        </AssociationSet>
+        <AssociationSet Name="IntegrationPackage_2_r_ValueMappingDesigntimeArtifacts" Association="com.sap.hci.api.IntegrationPackage_2_r_ValueMappingDesigntimeArtifacts">
+          <End EntitySet="IntegrationPackages" Role="IntegrationPackage"/>
+          <End EntitySet="ValueMappingDesigntimeArtifacts" Role="r_ValueMappingDesigntimeArtifacts"/>
+        </AssociationSet>
+        <AssociationSet Name="IntegrationDesigntimeArtifact_2_r_Configurations" Association="com.sap.hci.api.IntegrationDesigntimeArtifact_2_r_Configurations">
+          <End EntitySet="IntegrationDesigntimeArtifacts" Role="IntegrationDesigntimeArtifact"/>
+          <End EntitySet="Configurations" Role="r_Configurations"/>
+        </AssociationSet>
+        <AssociationSet Name="ServiceEndpoint_2_r_ApiDefinitions" Association="com.sap.hci.api.ServiceEndpoint_2_r_ApiDefinitions">
+          <End EntitySet="ServiceEndpoints" Role="ServiceEndpoint"/>
+          <End EntitySet="APIDefinitions" Role="r_ApiDefinitions"/>
+        </AssociationSet>
+        <AssociationSet Name="IntegrationPackage_2_r_IntegrationDesigntimeArtifacts" Association="com.sap.hci.api.IntegrationPackage_2_r_IntegrationDesigntimeArtifacts">
+          <End EntitySet="IntegrationPackages" Role="IntegrationPackage"/>
+          <End EntitySet="IntegrationDesigntimeArtifacts" Role="r_IntegrationDesigntimeArtifacts"/>
+        </AssociationSet>
+        <AssociationSet Name="IntegrationDesigntimeArtifact_2_r_Resources" Association="com.sap.hci.api.IntegrationDesigntimeArtifact_2_r_Resources">
+          <End EntitySet="IntegrationDesigntimeArtifacts" Role="IntegrationDesigntimeArtifact"/>
+          <End EntitySet="Resources" Role="r_Resources"/>
+        </AssociationSet>
+        <AssociationSet Name="XiDataStoresForArtifact" Association="com.sap.hci.api.XiDataStoresForArtifact">
+          <End EntitySet="XiDataStores" Role="r_DataStores"/>
+          <End EntitySet="XiDataStoreArtifacts" Role="r_Artifact"/>
+        </AssociationSet>
+        <AssociationSet Name="RolesForProfile" Association="com.sap.hci.api.RolesForProfile">
+          <End EntitySet="NodeProfiles" Role="r_NodeProfile"/>
+          <End EntitySet="Roles" Role="r_Roles"/>
+        </AssociationSet>
+        <AssociationSet Name="ArtifactsForQueue" Association="com.sap.hci.api.ArtifactsForQueue">
+          <End EntitySet="Queues" Role="r_Queue"/>
+          <End EntitySet="JmsArtifacts" Role="r_Artifacts"/>
+        </AssociationSet>
+        <AssociationSet Name="ToIdsForFromId2" Association="com.sap.hci.api.ToIdsForFromId2">
+          <End EntitySet="IdMapToIds" Role="r_ToId"/>
+          <End EntitySet="IdMapFromId2s" Role="r_FromId2s"/>
+        </AssociationSet>
+        <AssociationSet Name="JmsQueuesForQueue" Association="com.sap.hci.api.JmsQueuesForQueue">
+          <End EntitySet="Queues" Role="r_Queue"/>
+          <End EntitySet="JmsQueues" Role="r_JmsQueues"/>
+        </AssociationSet>
+        <AssociationSet Name="MessagesInQueue" Association="com.sap.hci.api.MessagesInQueue">
+          <End EntitySet="JmsMessages" Role="r_Messages"/>
+          <End EntitySet="Queues" Role="r_Queue"/>
+        </AssociationSet>
+        <AssociationSet Name="ToIdsForFromId" Association="com.sap.hci.api.ToIdsForFromId">
+          <End EntitySet="IdMapFromIds" Role="r_FromId"/>
+          <End EntitySet="IdMapToIds" Role="r_ToIds"/>
+        </AssociationSet>
+        <FunctionImport Name="DeployIntegrationDesigntimeArtifact" ReturnType="com.sap.hci.api.IntegrationDesigntimeArtifact" EntitySet="IntegrationDesigntimeArtifacts" m:HttpMethod="POST">
+          <Parameter Name="Id" Type="Edm.String" Nullable="false"/>
+          <Parameter Name="Version" Type="Edm.String" Nullable="false"/>
+        </FunctionImport>
+        <FunctionImport Name="CopyIntegrationPackage" ReturnType="com.sap.hci.api.IntegrationPackage" EntitySet="IntegrationPackages" m:HttpMethod="POST">
+          <Parameter Name="Id" Type="Edm.String" Nullable="false"/>
+          <Parameter Name="ImportMode" Type="Edm.String" Nullable="true"/>
+          <Parameter Name="Suffix" Type="Edm.String" Nullable="true"/>
+        </FunctionImport>
+        <FunctionImport Name="DeployValueMappingDesigntimeArtifact" ReturnType="com.sap.hci.api.ValueMappingDesigntimeArtifact" EntitySet="ValueMappingDesigntimeArtifacts" m:HttpMethod="POST">
+          <Parameter Name="Id" Type="Edm.String" Nullable="false"/>
+          <Parameter Name="Version" Type="Edm.String" Nullable="false"/>
+        </FunctionImport>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

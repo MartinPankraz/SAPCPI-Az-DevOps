@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="MessageProcessingLogs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="MessageProcessingLog">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" nillable="false" maxOccurs="unbounded" name="MessageGuid" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="CorrelationId" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="ApplicationMessageId" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="ApplicationMessageType" xmlns=""/>
+                            <xs:element type="xs:dateTime" nillable="true" minOccurs="0" maxOccurs="unbounded" name="LogStart" xmlns=""/>
+                            <xs:element type="xs:dateTime" nillable="true" minOccurs="0" maxOccurs="unbounded" name="LogEnd" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="Sender" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="Receiver" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="IntegrationFlowName" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="Status" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="AlternateWebLink" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="LogLevel" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="CustomStatus" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="TransactionId" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="PreviousComponentName" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="LocalComponentName" xmlns=""/>
+                            <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="OriginComponentName" xmlns=""/>
+                            <xs:element nillable="false" maxOccurs="unbounded" name="IntegrationArtifact">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="Id" xmlns=""/>
+                                        <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="Name" xmlns=""/>
+                                        <xs:element type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" name="Type" xmlns=""/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
