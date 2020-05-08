@@ -26,5 +26,5 @@ def Message processData(Message message) {
        //Properties 
        map = message.getProperties();
        message.setProperty("returnCode", value);
-       return message;
+       return message;//chech this
 }
