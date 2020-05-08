@@ -2,6 +2,10 @@ from http.client import HTTPSConnection
 import base64
 import json
 import os
+import ssl
+#disable ssl check due to self signed certificat of SAP CPI
+ssl._create_default_https_context = ssl._create_unverified_context
+
 #This sets up the https connection
 c = HTTPSConnection("mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com")
 #we need to base 64 encode it 
