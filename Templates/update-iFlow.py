@@ -22,7 +22,7 @@ xsrftoken = res.getheader("X-CSRF-Token")
 myHeaders = {}
 myCookie = res.getheader("Set-Cookie")
 print(res.getheaders())
-if myCookie != "None":
+if myCookie is not None:
     myCookie = myCookie.split(";")[0]
     myHeaders = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token': xsrftoken, "Content-Type": "application/json", "Cookie": myCookie }
 else:
