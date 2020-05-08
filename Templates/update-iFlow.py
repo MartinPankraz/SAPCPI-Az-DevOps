@@ -11,7 +11,7 @@ c = HTTPSConnection("mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com")
 #we need to base 64 encode it 
 #and then decode it to acsii as python 3 stores it as a byte string
 #userAndPass = base64.b64encode(b"$(username):$(password)").decode("ascii")
-userAndPass = base64.b64encode(b"mapankra@microsoft.com:Mn^lNs9+").decode("ascii")
+userAndPass = base64.b64encode(b"$(username):$(password)").decode("ascii")
 headers = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token':'Fetch' }
 #then connect
 c.request('GET', '/api/v1/MessageProcessingLogs', headers=headers)
