@@ -10,7 +10,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 c = HTTPSConnection("mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com")
 #we need to base 64 encode it 
 #and then decode it to acsii as python 3 stores it as a byte string
-userAndPass = base64.b64encode(b"$(username):$(password)").decode("ascii")
+#userAndPass = base64.b64encode(b"$(username):$(password)").decode("ascii")
+userAndPass = base64.b64encode(b"mapankra@microsoft.com:Mn^lNs9+").decode("ascii")
 headers = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token':'Fetch' }
 #then connect
 c.request('GET', '/api/v1/MessageProcessingLogs', headers=headers)
@@ -18,7 +19,15 @@ c.request('GET', '/api/v1/MessageProcessingLogs', headers=headers)
 res = c.getresponse()
 res.read()
 xsrftoken = res.getheader("X-CSRF-Token")
-myCookie = res.getheader("Set-Cookie").split(";")[0]
+myHeaders = {}
+myCookie = res.getheader("Set-Cookie")
+print(res.getheaders())
+if myCookie != "None":
+    myCookie = myCookie.split(";")[0]
+    myHeaders = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token': xsrftoken, "Content-Type": "application/json", "Cookie": myCookie }
+else:
+    myHeaders = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token': xsrftoken, "Content-Type": "application/json"}
+    print("no cookie header!")
 
 #prepare to update groovy scripts in remote CPI tenant
 directory = './$(Release.PrimaryArtifactSourceAlias)/drop/src/main/resources/script/' #"../src/main/resources/script/"
@@ -36,10 +45,9 @@ for filename in os.listdir(directory):
         #encode json for http body
         data = json.dumps(data).encode('ascii')
 
-        headers = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token': xsrftoken, "Content-Type": "application/json", "Cookie": myCookie }
         path = "/api/v1/IntegrationDesigntimeArtifacts(Id='CreateIssueInAzureDevOps',Version='active')/$links/Resources(Name='" + filename + "',ResourceType='groovy')"
 
-        c.request('PUT', path, headers=headers, body=data)
+        c.request('PUT', path, headers=myHeaders, body=data)
 
         res = c.getresponse()
         out = res.read()
