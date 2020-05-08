@@ -19,9 +19,10 @@ c.request('GET', '/api/v1/MessageProcessingLogs', headers=headers)
 res = c.getresponse()
 res.read()
 xsrftoken = res.getheader("X-CSRF-Token")
+print(res.getcode())
 myHeaders = {}
 myCookie = res.getheader("Set-Cookie")
-print(res.getheaders())
+#print(res.getheaders())
 if myCookie is not None:
     myCookie = myCookie.split(";")[0]
     myHeaders = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token': xsrftoken, "Content-Type": "application/json", "Cookie": myCookie }
