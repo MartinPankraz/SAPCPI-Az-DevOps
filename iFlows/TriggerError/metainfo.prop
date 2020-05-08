@@ -1,0 +1,7 @@
+#Store metainfo properties
+#Fri May 08 17:48:37 UTC 2020
+nodeType=IFLMAP
+productProfile=iflmap
+description=Example iFlow calling generic iflow to create Issues Azure DevOps for troubleshooting
+source=Postman
+target=http

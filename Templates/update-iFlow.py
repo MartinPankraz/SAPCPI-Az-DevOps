@@ -31,7 +31,7 @@ else:
     print("no cookie header!")
 
 #prepare to update groovy scripts in remote CPI tenant
-directory = './$(Release.PrimaryArtifactSourceAlias)/drop/src/main/resources/script/' #"../src/main/resources/script/"
+directory = './$(Release.PrimaryArtifactSourceAlias)/drop/CreateIssueInAzureDevOps/src/main/resources/script/' #"../src/main/resources/script/"
 for filename in os.listdir(directory):
     if filename.endswith(".groovy"): 
         print(os.path.join(directory, filename))    
