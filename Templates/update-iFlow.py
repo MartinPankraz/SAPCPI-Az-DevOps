@@ -21,7 +21,7 @@ xsrftoken = res.getheader("X-CSRF-Token")
 myCookie = res.getheader("Set-Cookie").split(";")[0]
 
 #prepare to update groovy scripts in remote CPI tenant
-directory = "../src/main/resources/script/"
+directory = './$(Release.PrimaryArtifactSourceAlias)/drop/src/main/resources/script/' #"../src/main/resources/script/"
 for filename in os.listdir(directory):
     if filename.endswith(".groovy"): 
         print(os.path.join(directory, filename))    

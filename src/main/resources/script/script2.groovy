@@ -51,5 +51,5 @@ def Message processData(Message message) {
      
     message.setBody(builder.toPrettyString());
        
-       return message;
+       return message;//and some more
 }
