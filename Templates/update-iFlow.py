@@ -58,6 +58,15 @@ for filename in os.listdir(directory):
         continue
     else:
         continue
+#deploy iflow
+path = "/api/v1/DeployIntegrationDesigntimeArtifact?Id='CreateIssueInAzureDevOps'&Version='active'"
+c.request('POST', path, headers=myHeaders)
+res = c.getresponse()
+out = res.read()
+print("deploying iflow CreateIssueInAzureDevOps")
+code = res.getcode()
+print(code)
+print(out)
 #close connection
 res.close()
 c.close()
