@@ -12,8 +12,8 @@ import shutil
 ssl._create_default_https_context = ssl._create_unverified_context
 
 username = sys.argv[1]
-password = sys.argv[2]#problematic strings need to be escaped
-        
+password = sys.argv[2]
+print("consider escaping characters on your password in case you have login problems...")
 #This sets up the https connection
 c = HTTPSConnection("mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com")
 #we need to base 64 encode it 
