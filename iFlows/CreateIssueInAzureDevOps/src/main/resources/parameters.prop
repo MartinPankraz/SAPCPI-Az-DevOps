@@ -1,4 +1,6 @@
 #
-#Sat May 09 17:35:09 UTC 2020
+#Sun May 10 10:41:44 UTC 2020
+LogicApp\ address=https\://auth-proxy.azure-api.net/azboards/manual/paths/invoke
+LogicApp\ Query=
 Tenant\ Url=https\://mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com\:443/itspaces/shell/monitoring/MessageDetails/
 CPI\ API\ Credential=CPI_API

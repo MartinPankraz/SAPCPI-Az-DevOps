@@ -12,7 +12,7 @@ import shutil
 ssl._create_default_https_context = ssl._create_unverified_context
 
 username = sys.argv[1]
-password = sys.argv[2]
+password = sys.argv[2]#problematic strings need to be escaped
         
 #This sets up the https connection
 c = HTTPSConnection("mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com")
@@ -20,9 +20,6 @@ c = HTTPSConnection("mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com")
 #and then decode it to acsii as python 3 stores it as a byte string
 userAndPass = base64.b64encode(bytes(username + ':' + password, "utf-8")).decode("ascii")
 myHeaders = { 'Authorization' : 'Basic %s' %  userAndPass, 'X-CSRF-Token':'Fetch' }
-
-#prepare to update groovy scripts in remote CPI tenant
-directory = '../iFlows/'
 
 #Get all iflow ids of a package
 path = "/api/v1/IntegrationPackages('AzureExample')/IntegrationDesigntimeArtifacts?$format=json"

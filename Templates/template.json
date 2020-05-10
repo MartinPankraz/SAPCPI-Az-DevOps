@@ -1,0 +1,133 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_createIssueInAzBoards_name": {
+            "defaultValue": "createIssueInAzBoards",
+            "type": "String"
+        },
+        "connections_visualstudioteamservices_externalid": {
+            "defaultValue": "/subscriptions/<<<subscirption id>>>/resourceGroups/sap-cpi-integration-rg/providers/Microsoft.Web/connections/visualstudioteamservices",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_createIssueInAzBoards_name')]",
+            "location": "westeurope",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "method": "POST",
+                                "schema": {
+                                    "properties": {
+                                        "obj": {
+                                            "properties": {
+                                                "httpCode": {
+                                                    "type": "string"
+                                                },
+                                                "iflowName": {
+                                                    "type": "string"
+                                                },
+                                                "integrationPackage": {
+                                                    "type": "string"
+                                                },
+                                                "logid": {
+                                                    "type": "string"
+                                                },
+                                                "msg": {
+                                                    "type": "string"
+                                                },
+                                                "time": {
+                                                    "type": "string"
+                                                },
+                                                "url": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Create_a_work_item": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "description": "<b>Integration package</b>: @{triggerBody()?['obj']?['integrationPackage']},<br><b>Message</b>: @{triggerBody()?['obj']?['msg']},<br><b>Error Code</b>: @{triggerBody()?['obj']?['httpCode']},<br><b>at</b>: @{triggerBody()?['obj']?['time']},<br><b>CPI-Log</b>: <a href=\" @{triggerBody()?['obj']?['url']}\">link</a>",
+                                    "dynamicFields": {
+                                        "System.AssignedTo": "mapankra@microsoft.com"
+                                    },
+                                    "priority": 1,
+                                    "title": "Issue with iFlow: @{triggerBody()?['obj']?['iflowName']} [http @{triggerBody()?['obj']?['httpCode']}]",
+                                    "userEnteredFields": {
+                                        "effort": "10"
+                                    }
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                                    }
+                                },
+                                "method": "patch",
+                                "path": "/@{encodeURIComponent('SAP-CPI-Integration-Az-DevOps')}/_apis/wit/workitems/$@{encodeURIComponent('Issue')}",
+                                "queries": {
+                                    "account": "mapankra"
+                                }
+                            }
+                        },
+                        "Response": {
+                            "runAfter": {
+                                "Create_a_work_item": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Response",
+                            "kind": "Http",
+                            "inputs": {
+                                "body": "<a href\"https://dev.azure.com/mapankra/Playground/_workitems/edit/@{body('Create_a_work_item')?['id']}/\">link to Azure DevOps</a>",
+                                "headers": {
+                                    "Content-Type": "text/html"
+                                },
+                                "statusCode": 200
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "visualstudioteamservices": {
+                                "connectionId": "[parameters('connections_visualstudioteamservices_externalid')]",
+                                "connectionName": "visualstudioteamservices",
+                                "id": "/subscriptions/<<<subscirption id>>>/providers/Microsoft.Web/locations/westeurope/managedApis/visualstudioteamservices"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

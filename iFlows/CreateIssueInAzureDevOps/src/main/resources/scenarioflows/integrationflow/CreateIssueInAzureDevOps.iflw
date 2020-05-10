@@ -165,7 +165,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>httpAddressQuery</key>
-                    <value>api-version=2016-10-01&amp;sp=%2Ftriggers%2Fmanual%2Frun&amp;sv=1.0&amp;sig=39WvgSG3vnqtwbFS39oqF77dTX2IMK4WeUYI34ko-gA</value>
+                    <value>{{LogicApp Query}}</value>
                 </ifl:property>
                 <ifl:property>
                     <key>httpRequestTimeout</key>
@@ -209,7 +209,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>authenticationMethod</key>
-                    <value>None</value>
+                    <value>Basic</value>
                 </ifl:property>
                 <ifl:property>
                     <key>locationID</key>
@@ -225,7 +225,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>credentialName</key>
-                    <value/>
+                    <value>AzBasicAuth</value>
                 </ifl:property>
                 <ifl:property>
                     <key>MessageProtocolVersion</key>
@@ -233,7 +233,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>httpAddressWithoutQuery</key>
-                    <value>https://prod-126.westeurope.logic.azure.com:443/workflows/d3e5f09b02024346850169e1151449c1/triggers/manual/paths/invoke</value>
+                    <value>{{LogicApp address}}</value>
                 </ifl:property>
             </bpmn2:extensionElements>
         </bpmn2:messageFlow>
@@ -520,7 +520,7 @@
                     <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_96_1588959980552" xsi:type="bpmn2:tFormalExpression">${property.skipAzure} = 'false'</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_96_1589105128645" xsi:type="bpmn2:tFormalExpression">${property.skipAzure} = 'false'</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_100" name="Route 2" sourceRef="ExclusiveGateway_73" targetRef="EndEvent_97">
             <bpmn2:extensionElements>
