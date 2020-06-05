@@ -34,9 +34,7 @@ test {
 	finalizedBy jacocoTestReport // report is always generated after tests run
 	//systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true
 }
-jacoco {
-	toolVersion = '0.8.1'
-}
+
 jacocoTestReport {
 	dependsOn test // tests are required to run before generating the report
 	reports {
