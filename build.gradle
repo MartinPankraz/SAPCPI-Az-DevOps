@@ -7,6 +7,7 @@
  */
 
 apply plugin: 'groovy'
+apply plugin: 'jacoco'
 
 repositories {
    mavenCentral()
@@ -30,5 +31,17 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport // report is always generated after tests run
 	//systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true
+}
+jacoco {
+	toolVersion = '0.8.1'
+}
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+	reports {
+		xml.enabled true
+		csv.enabled false
+		html.destination file("${buildDir}/reports/jacocoHtml")
+	}
 }
