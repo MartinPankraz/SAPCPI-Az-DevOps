@@ -7,7 +7,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 #This sets up the https connection
-c = HTTPSConnection("mycpitrial.it-cpitrial01.cfapps.eu10.hana.ondemand.com")
+c = HTTPSConnection("658fa002trial.it-cpitrial.cfapps.us10.hana.ondemand.com")
 #we need to base 64 encode it 
 #and then decode it to acsii as python 3 stores it as a byte string
 #userAndPass = base64.b64encode(b"$(username):$(password)").decode("ascii")

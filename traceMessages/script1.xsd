@@ -1,0 +1,28 @@
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="RegisteredProductCollection">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RegisteredProduct" maxOccurs="unbounded" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Status">
+                <xsd:simpleType>
+      				<xsd:restriction base="xsd:string">
+				        <xsd:enumeration value="active" />
+				        <xsd:enumeration value="disabled" />
+				        <xsd:enumeration value="deprecated" />
+			    	</xsd:restriction>
+		    	</xsd:simpleType>
+              </xsd:element>
+              <xsd:element type="xsd:string" name="ObjectID"/>
+              <xsd:element type="xsd:string" name="RegisteredProductCategory"/>
+              <xsd:element type="xsd:string" name="ProductID"/>
+              <xsd:element type="xsd:string" name="ID"/>
+              <xsd:element type="xsd:long" name="SerialID"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

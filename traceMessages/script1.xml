@@ -1,0 +1,18 @@
+<RegisteredProductCollection>
+	<RegisteredProduct>
+		<Status>2</Status>
+		<ObjectID>00163E76737B1ED8B8E6204D18C71097</ObjectID>
+		<RegisteredProductCategory></RegisteredProductCategory>
+		<ProductID>Z0010</ProductID>
+		<ID>1234Z0010</ID>
+		<SerialID>1234567891011121314</SerialID>
+	</RegisteredProduct>
+	<RegisteredProduct>
+		<Status>3</Status>
+		<ObjectID>00163E76737B1ED8B8E6204D18C71098</ObjectID>
+		<RegisteredProductCategory></RegisteredProductCategory>
+		<ProductID>Z2000</ProductID>
+		<ID>1234Z2000</ID>
+		<SerialID>1234567891011121315</SerialID>
+	</RegisteredProduct>
+</RegisteredProductCollection>
