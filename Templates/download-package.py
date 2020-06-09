@@ -35,7 +35,7 @@ for iflow in out:
     c.request('GET', individualPath, headers=myHeaders)
     res = c.getresponse()
     #unzip
-    localPath = Path().resolve().parent / ("iFlows") / (iFlowName)
+    localPath = Path().resolve().parent / ("src/main/groovy") / (iFlowName)
     #cleanup folder before write
     print("deleting: " + str(localPath))
     shutil.rmtree(localPath)

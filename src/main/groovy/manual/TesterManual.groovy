@@ -1,3 +1,4 @@
+package manual
 import com.sap.gateway.ip.core.customdev.util.Message;
 import com.sap.gateway.ip.core.customdev.processor.MessageImpl;
 import javax.xml.XMLConstants
@@ -12,7 +13,7 @@ class TesterManual {
           
           // Load Groovy Script
           GroovyShell shell = new GroovyShell();
-          def script = shell.parse(new File("iFlows/TriggerError/src/main/resources/script/script1.groovy"));
+          def script = shell.parse(new File("src/main/groovy/TriggerError/src/main/resources/script/script1.groovy"));
 		  Message msg = new MessageImpl();
 		    
         String xmlFile = new File('traceMessages/script1.xml').getText('UTF-8');

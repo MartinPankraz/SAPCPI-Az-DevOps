@@ -35,11 +35,15 @@ test {
 }
 
 jacocoTestReport {
-	dependsOn test // tests are required to run before generating the report
 	reports {
 		html.enabled true
 		xml.enabled true
 		csv.enabled false
 		//html.destination file("${buildDir}/reports/jacocoHtml")
+	}
+	afterEvaluate {
+		classDirectories.setFrom files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: ['CreateIssueInAzureDevOps/**', 'manual/**'])
+		})
 	}
 }

@@ -31,7 +31,7 @@ else:
     print("no cookie header!")
 
 #prepare to update groovy scripts in remote CPI tenant
-directory = './$(Release.PrimaryArtifactSourceAlias)/drop/iFlows/CreateIssueInAzureDevOps/src/main/resources/script/' #"../src/main/resources/script/"
+directory = './$(Release.PrimaryArtifactSourceAlias)/drop/src/main/groovy/TriggerError/src/main/resources/script/' #"../src/main/resources/script/"
 for filename in os.listdir(directory):
     if filename.endswith(".groovy"): 
         print(os.path.join(directory, filename))    
@@ -46,7 +46,7 @@ for filename in os.listdir(directory):
         #encode json for http body
         data = json.dumps(data).encode('ascii')
 
-        path = "/api/v1/IntegrationDesigntimeArtifacts(Id='CreateIssueInAzureDevOps',Version='active')/$links/Resources(Name='" + filename + "',ResourceType='groovy')"
+        path = "/api/v1/IntegrationDesigntimeArtifacts(Id='TriggerError',Version='active')/$links/Resources(Name='" + filename + "',ResourceType='groovy')"
 
         c.request('PUT', path, headers=myHeaders, body=data)
 
@@ -59,11 +59,11 @@ for filename in os.listdir(directory):
     else:
         continue
 #deploy iflow
-path = "/api/v1/DeployIntegrationDesigntimeArtifact?Id='CreateIssueInAzureDevOps'&Version='active'"
+path = "/api/v1/DeployIntegrationDesigntimeArtifact?Id='TriggerError'&Version='active'"
 c.request('POST', path, headers=myHeaders)
 res = c.getresponse()
 out = res.read()
-print("deploying iflow CreateIssueInAzureDevOps")
+print("deploying iflow TriggerError")
 code = res.getcode()
 print(code)
 print(out)

@@ -8,7 +8,7 @@ import com.sap.gateway.ip.core.customdev.util.Message
 class Testscript1 {
 	
 	private GroovyShell shell = new GroovyShell();
-	private Script script = shell.parse(new File("iFlows/CreateIssueInAzureDevOps/src/main/resources/script/script1.groovy"));
+	private Script script = shell.parse(new File("src/main/groovy/CreateIssueInAzureDevOps/src/main/resources/script/script1.groovy"));
 	//private Script script = shell.parse(new File("src/main/groovy/script1.groovy"));
 	private Message msg;
 

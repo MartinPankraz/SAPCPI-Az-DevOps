@@ -11,7 +11,7 @@ class ExtractQueryParametersSpockTester extends Specification {
 	
 	def setupSpec() {
 		// Load Groovy Script		
-		script = shell.parse(new File("iFlows/CreateIssueInAzureDevOps/src/main/resources/script/script1.groovy"))
+		script = shell.parse(new File("src/main/groovy/CreateIssueInAzureDevOps/src/main/resources/script/script1.groovy"))
 	}
 	
 	def setup() {

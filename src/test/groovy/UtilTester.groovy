@@ -16,7 +16,8 @@ class UtilTester extends Specification {
 	
 	def setupSpec() {
 		// Load Groovy Script		
-		script = shell.parse(new File("iFlows/TriggerError/src/main/resources/script/script2.groovy"))
+		//script = shell.parse(new File("iFlows/TriggerError/src/main/resources/script/script2.groovy"))
+		script = shell.parse(new File("src/main/groovy/TriggerError/src/main/resources/script/script2.groovy"))
 	}
 	
 	def setup() {
