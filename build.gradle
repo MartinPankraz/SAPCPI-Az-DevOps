@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
    compile 'org.codehaus.groovy:groovy-all:3.0.2'
+   compile group: 'org.osgi', name: 'osgi.core', version: '4.3.1'
    compile fileTree(dir: 'lib', include: ['*.jar'])
    // https://mvnrepository.com/artifact/org.opentest4j/opentest4j
    compile group: 'org.opentest4j', name: 'opentest4j', version: '1.2.0'
@@ -27,6 +28,23 @@ dependencies {
    
    implementation "org.junit.jupiter:junit-jupiter-api:5.3.0"
    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.3.0"
+}
+
+jar {
+	archiveName = "myUtilsPackaged.jar"
+	manifest {
+		attributes 'Manifest-Version': '1.0'
+	}
+	into('iFlowUtils/src/main/resources/script/'){
+		from file("${buildDir}/classes/groovy/main/iFlowUtils/src/main/resources/script/MyUtilsPackaged.class")
+	}
+	destinationDir = file("$rootDir/src/main/groovy/TriggerError/src/main/resources/lib")
+	
+	exclude ("manual/**")
+	exclude ("TriggerError/**")
+	exclude ("CreateIssueInAzureDevOps/**")
+	exclude ("iFlowUtils/**")
+	
 }
 
 test {

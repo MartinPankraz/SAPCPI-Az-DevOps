@@ -1,36 +1,44 @@
 package TriggerError.src.main.resources.script
-/*
- The integration developer needs to create the method processData 
- This method takes Message object of package com.sap.gateway.ip.core.customdev.util 
-which includes helper methods useful for the content developer:
-The methods available are:
-    public java.lang.Object getBody()
-	public void setBody(java.lang.Object exchangeBody)
-    public java.util.Map<java.lang.String,java.lang.Object> getHeaders()
-    public void setHeaders(java.util.Map<java.lang.String,java.lang.Object> exchangeHeaders)
-    public void setHeader(java.lang.String name, java.lang.Object value)
-    public java.util.Map<java.lang.String,java.lang.Object> getProperties()
-    public void setProperties(java.util.Map<java.lang.String,java.lang.Object> exchangeProperties) 
-    public void setProperty(java.lang.String name, java.lang.Object value)
-    public java.util.List<com.sap.gateway.ip.core.customdev.util.SoapHeader> getSoapHeaders()
-    public void setSoapHeaders(java.util.List<com.sap.gateway.ip.core.customdev.util.SoapHeader> soapHeaders) 
-       public void clearSoapHeaders()
- */
+
 import com.sap.gateway.ip.core.customdev.util.Message;
 import groovy.xml.XmlUtil;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import iFlowUtils.src.main.resources.script.MyUtilsPackaged
 
 def Message processData(Message message) {
-	//location of this script and load util groovy script "script2"
-	def scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
-	File sourceFile = new File(scriptDir + "/script2.groovy");
-	Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile);
-	GroovyObject myObject = (GroovyObject) groovyClass.newInstance();
+	def externalValueFromJar = new MyUtilsPackaged().doSomething("test me!!!");
+	println(externalValueFromJar);
+	String customStringUtilsScriptContent;
+	// Reusable script coordinates
+	String flowName = 'iFlowUtils'
+	String scriptName = 'myUtils.groovy';
+	//unit testing sequence without OSGi
+	def isUnitTest = message.getHeaders()["unitTestIndicator"];
+	if(isUnitTest) {
+		def scriptDir = "./src/main/groovy/$flowName/src/main/resources/script/"
+		customStringUtilsScriptContent = new File(scriptDir + "$scriptName").getText();
+	}//CPI runtime sequence with OSGi
+	else {
+		// Get bundle context and from it, access reusable iFlow bundle
+	    BundleContext context = FrameworkUtil.getBundle(Message).bundleContext
+	    Bundle utilsBundle = context.bundles.find { it.symbolicName == flowName }
+	    
+	    // Within the bundle, access reusable script and read its content
+	    customStringUtilsScriptContent = utilsBundle.getEntry("script/$scriptName").text
+	}
+    
+    // Parse script content and execute its function
+    Script customStringUtilsScript = new GroovyShell().parse(customStringUtilsScriptContent)
+    String result = customStringUtilsScript.addPrefix(prefix, delimiter, value)
+	println(result);
 	//Body 
     def body = message.getBody(/*java.lang.String*/);
     body = new XmlParser().parseText(body);
 
-    def me = myObject.getCurrentOdataTime(System.currentTimeMillis());
-    println(me);
+    //def me = myObject.getCurrentOdataTime(System.currentTimeMillis());
+    //println(me);
 	body.RegisteredProduct.each{
 		def value = it.Status[0].text();
 		if(value == "2") {

@@ -17,7 +17,7 @@ class UtilTester extends Specification {
 	def setupSpec() {
 		// Load Groovy Script		
 		//script = shell.parse(new File("iFlows/TriggerError/src/main/resources/script/script2.groovy"))
-		script = shell.parse(new File("src/main/groovy/TriggerError/src/main/resources/script/script2.groovy"))
+		script = shell.parse(new File("src/main/groovy/iFlowUtils/src/main/resources/script/myUtils.groovy"))
 	}
 	
 	def setup() {
@@ -30,9 +30,23 @@ class UtilTester extends Specification {
 		def compare = "/Date(" + mills + ")/" 
 		
 		when: "we execute the Groovy script"
-		def odataTimeString = script.getCurrentOdataTime(mills);
+		def odataTimeString = script.getCurrentOdataTime(""+mills);
 		
 		then: "timestamp valid"
 		odataTimeString == compare
+	}
+	
+	def "Check prefix"() {
+		
+		given: "String to concatenate"
+		def prefix = "pre";
+		def delimiter = "-";
+		def value = "covid19";
+		
+		when: "we execute the Groovy script"
+		def text = script.addPrefix(prefix, delimiter, value);
+		
+		then: "text concatenanted?"
+		text == "pre-covid19"
 	}
 }

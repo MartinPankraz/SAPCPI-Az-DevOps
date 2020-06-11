@@ -36,9 +36,14 @@ for iflow in out:
     res = c.getresponse()
     #unzip
     localPath = Path().resolve().parent / ("src/main/groovy") / (iFlowName)
-    #cleanup folder before write
-    print("deleting: " + str(localPath))
-    shutil.rmtree(localPath)
+        
+    # Check whether the specified path is an existing file  
+    isDir = os.path.isdir(localPath)
+    if isDir == True:
+        #cleanup folder before write
+        print("deleting: " + str(localPath))
+        shutil.rmtree(localPath)
+    
     #write zip content
     with ZipFile(BytesIO(res.read())) as zfile:
         zfile.extractall(localPath)

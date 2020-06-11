@@ -26,7 +26,8 @@ class ValidateXMLTransformation extends Specification {
 		
 		String xmlFile = new File('traceMessages/script1.xml').getText('UTF-8');
 		
-		given: "source XML message"		
+		given: "source XML message"
+		this.msg.setHeader("unitTestIndicator", true);
 		this.msg.setBody(xmlFile);
 			
 		when: "we execute the Groovy script"

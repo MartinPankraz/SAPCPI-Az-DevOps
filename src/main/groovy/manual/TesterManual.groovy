@@ -10,14 +10,13 @@ class TesterManual {
      
      public static void main(String[] args) {
 //        System.out.println("Hello Java-World!");
-          
           // Load Groovy Script
-          GroovyShell shell = new GroovyShell();
-          def script = shell.parse(new File("src/main/groovy/TriggerError/src/main/resources/script/script1.groovy"));
-		  Message msg = new MessageImpl();
+        GroovyShell shell = new GroovyShell();
+        def script = shell.parse(new File("src/main/groovy/TriggerError/src/main/resources/script/script1.groovy"));
+		Message msg = new MessageImpl();
 		    
         String xmlFile = new File('traceMessages/script1.xml').getText('UTF-8');
-				
+		msg.setHeader("unitTestIndicator", true);
 		msg.setBody(xmlFile);
 			
 		script.processData(msg);
@@ -34,15 +33,15 @@ class TesterManual {
 			result = false;
 		} 
 		println(result);
-		  // Display results of script in console
-		  println("Body:\r\n" + msg.getBody())
+		// Display results of script in console
+		println("Body:\r\n" + msg.getBody())
 		  
-		  def displayMaps = { String mapName, Map map ->
-			  println mapName
-			  map.each { key, value -> println( key + " = " + value) }
-		  }
-		  displayMaps("Headers:", msg.getHeaders())
-		  displayMaps("Properties:", msg.getProperties())
+		def displayMaps = { String mapName, Map map ->
+			println mapName
+			map.each { key, value -> println( key + " = " + value) }
+		}
+		displayMaps("Headers:", msg.getHeaders())
+		displayMaps("Properties:", msg.getProperties())
      }
 
 }
