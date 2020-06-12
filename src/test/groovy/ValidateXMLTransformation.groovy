@@ -28,6 +28,9 @@ class ValidateXMLTransformation extends Specification {
 		
 		given: "source XML message"
 		this.msg.setHeader("unitTestIndicator", true);
+		this.msg.setProperty("myPrefix", "pre");
+		this.msg.setProperty("myDelimiter", "-");
+		this.msg.setProperty("myValue", "checkItOut");
 		this.msg.setBody(xmlFile);
 			
 		when: "we execute the Groovy script"

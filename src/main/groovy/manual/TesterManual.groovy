@@ -17,6 +17,9 @@ class TesterManual {
 		    
         String xmlFile = new File('traceMessages/script1.xml').getText('UTF-8');
 		msg.setHeader("unitTestIndicator", true);
+		msg.setProperty("myPrefix", "pre");
+		msg.setProperty("myDelimiter", "-");
+		msg.setProperty("myValue", "checkItOut");
 		msg.setBody(xmlFile);
 			
 		script.processData(msg);
