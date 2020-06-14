@@ -6,6 +6,6 @@ Integration Example of SAP CPI with Azure DevOps
 
 SAP Community Posts:
 
-Integrated Issue tracking from SAP CPI in Azure Boards with release to CPI tenant script files: https://blogs.sap.com/2020/05/10/a-tale-of-azure-logicapps-and-cpi-or-how-my-iflows-learned-devops-practices
+- Integrated Issue tracking from SAP CPI in Azure Boards with release to CPI tenant script files: https://blogs.sap.com/2020/05/10/a-tale-of-azure-logicapps-and-cpi-or-how-my-iflows-learned-devops-practices
 
-Full-cycle CI/CD from Azure Pipelines for scripts in SAP CPI including release:
+- Full-cycle CI/CD from Azure Pipelines for scripts in SAP CPI including release:
