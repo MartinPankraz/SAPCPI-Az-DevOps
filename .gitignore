@@ -6,3 +6,7 @@ build
 
 # Ignore generated files
 bin
+
+# Ignore SAP libraries
+lib/*
+!lib/spock/
