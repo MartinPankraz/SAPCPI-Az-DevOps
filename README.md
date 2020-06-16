@@ -8,4 +8,4 @@ SAP Community Posts:
 
 - Integrated Issue tracking from SAP CPI in Azure Boards with release to CPI tenant script files: https://blogs.sap.com/2020/05/10/a-tale-of-azure-logicapps-and-cpi-or-how-my-iflows-learned-devops-practices
 
-- Full-cycle CI/CD from Azure Pipelines for scripts in SAP CPI including release:
+- Full-cycle CI/CD from Azure Pipelines for scripts in SAP CPI including release: https://blogs.sap.com/2020/06/16/the-day-my-iflows-graduated-from-devops-high-adding-automated-unittesting-for-ci-with-groovy/
